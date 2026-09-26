@@ -1,0 +1,2484 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title>ইমু ডাইমন — স্টোর</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+    --g1:#FFF6D0; --g2:#FFD700; --g3:#E9BE3C; --g4:#C9971C; --g5:#8A6A12;
+    --line:rgba(255,215,0,.26); --line-2:rgba(255,215,0,.13); --line-3:rgba(255,215,0,.08);
+    --txt:#F5EAD0; --muted:#A89364; --muted-2:#7d6c46;
+    --ok:#4ADE80; --err:#FF6B6B; --warn:#FFB74D;
+    --bkash:#E2136E; --bkash-2:#A30D50;
+    --nagad:#EE7623; --nagad-2:#B8551A;
+    --rocket:#8B1FA9; --rocket-2:#5C1372;
+    --r-xl:34px; --r-lg:24px; --r-md:16px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{-webkit-text-size-adjust:100%;}
+body{
+    font-family:'Hind Siliguri','Noto Sans Devanagari','Segoe UI',system-ui,-apple-system,sans-serif;
+    min-height:100vh; display:flex; align-items:flex-start; justify-content:center;
+    padding:18px;
+    background:
+        radial-gradient(circle at 14% 4%, rgba(255,215,0,.10), transparent 42%),
+        radial-gradient(circle at 86% 96%, rgba(201,151,28,.12), transparent 46%),
+        linear-gradient(160deg,#0c0a06 0%,#120e07 48%,#080603 100%);
+    background-attachment:fixed; color:var(--txt); overflow-x:hidden;
+    user-select:none; -webkit-user-select:none;
+}
+input,textarea{user-select:text;-webkit-user-select:text;}
+
+.bg-deco{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;}
+.bg-deco .grid{
+    position:absolute;inset:0;
+    background-image:
+        linear-gradient(rgba(255,215,0,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,215,0,.045) 1px, transparent 1px);
+    background-size:46px 46px;
+    -webkit-mask-image:radial-gradient(ellipse at center, #000 12%, transparent 74%);
+    mask-image:radial-gradient(ellipse at center, #000 12%, transparent 74%);
+}
+.bg-deco .glow-a,.bg-deco .glow-b{position:absolute;border-radius:50%;filter:blur(100px);}
+.bg-deco .glow-a{width:330px;height:330px;top:-120px;left:-110px;background:radial-gradient(circle, rgba(255,215,0,.22), transparent 70%);}
+.bg-deco .glow-b{width:370px;height:370px;bottom:-140px;right:-120px;background:radial-gradient(circle, rgba(201,151,28,.20), transparent 70%);}
+
+.app-wrap{position:relative;width:100%;max-width:460px;}
+.app-container{
+    position:relative;width:100%;
+    background:linear-gradient(168deg,#161107 0%,#0f0b05 52%,#130e06 100%);
+    border:1px solid var(--line); border-radius:var(--r-xl);
+    padding:0 0 26px; overflow:hidden;
+    box-shadow:0 40px 80px -34px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,215,0,.10);
+}
+.app-container::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,transparent,#C9971C 18%,#FFD700 50%,#C9971C 82%,transparent);
+}
+.header{display:flex;align-items:center;justify-content:space-between;padding:22px 20px 0;margin-bottom:10px;gap:10px;}
+.header-left{display:flex;align-items:center;gap:12px;min-width:0;}
+.emu-icon{
+    position:relative;width:54px;height:54px;border-radius:17px;flex-shrink:0;
+    display:grid;place-items:center;cursor:pointer;
+    background:linear-gradient(140deg,#FFE9A8 0%,#FFD700 42%,#C9971C 100%);
+    box-shadow:0 10px 26px -10px rgba(255,215,0,.85), inset 0 1px 0 rgba(255,255,255,.65);
+    border:1px solid rgba(255,240,180,.55);
+}
+.emu-icon svg{width:30px;height:30px;fill:#1c1305;}
+.logo-text{min-width:0;}
+.logo-text .brand{
+    font-family:'Poppins','Hind Siliguri','Noto Sans Devanagari',sans-serif;
+    font-size:21px;font-weight:800;letter-spacing:-.4px;line-height:1.24;
+    display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+}
+.logo-text .brand .green{background-image:linear-gradient(135deg,#FFF6D0,#FFD700 45%,#C9971C 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.logo-text .brand .diamond{background-image:linear-gradient(135deg,#FFFDF2,#FFD700,#C9971C);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:17px;}
+.logo-text .brand > span:last-child{color:#E4D3A6;}
+.logo-text .tagline{font-size:12px;font-weight:600;margin-top:-1px;color:var(--muted);display:flex;align-items:center;gap:6px;}
+.logo-text .tagline i{color:var(--g2);font-size:11px;}
+.header-badge{
+    font-size:11px;font-weight:800;padding:8px 15px;border-radius:40px;
+    display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;
+    color:#1c1305; background:linear-gradient(135deg,#FFE9A8,#FFD700 48%,#D9A81E);
+    border:1px solid rgba(255,245,200,.7);
+    box-shadow:0 8px 20px -8px rgba(255,215,0,.9), inset 0 1px 0 rgba(255,255,255,.75);
+}
+.header-badge i{color:#1c1305;font-size:11px;}
+
+/* ===== Language switcher ===== */
+.lang-bar{display:flex;gap:6px;padding:0 20px;margin:0 0 16px;}
+.lang-btn{
+    flex:1;padding:9px 4px;border-radius:30px;font-size:11.5px;font-weight:800;cursor:pointer;
+    border:1px solid var(--line-3);background:rgba(255,215,0,.04);color:var(--muted);
+    font-family:'Hind Siliguri','Noto Sans Devanagari',sans-serif;
+    display:flex;align-items:center;justify-content:center;gap:5px;
+    transition:transform .15s ease;
+}
+.lang-btn:active{transform:scale(.95);}
+.lang-btn i{font-size:10px;}
+.lang-btn.active{
+    color:#1c1305;background:linear-gradient(135deg,#FFE9A8,#FFD700 45%,#D9A81E);
+    border-color:rgba(255,245,200,.55);
+    box-shadow:0 6px 16px -8px rgba(255,215,0,.85), inset 0 1px 0 rgba(255,255,255,.7);
+}
+
+.balance-card{
+    margin:6px 20px 18px; padding:18px; border-radius:22px;
+    background:radial-gradient(circle at 92% 8%, rgba(255,215,0,.22), transparent 55%), linear-gradient(150deg,#1f1708 0%,#130e06 60%,#1a1206 100%);
+    border:1px solid var(--line); position:relative; overflow:hidden;
+    box-shadow:0 20px 40px -22px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,215,0,.18);
+}
+.balance-row{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.balance-left{display:flex;align-items:center;gap:13px;min-width:0;}
+.balance-icon{
+    width:52px;height:52px;border-radius:16px;flex-shrink:0;
+    display:grid;place-items:center;font-size:22px;color:#FFD700;
+    background:linear-gradient(140deg,rgba(255,215,0,.24),rgba(255,215,0,.06));
+    border:1px solid rgba(255,215,0,.45); filter:drop-shadow(0 0 12px rgba(255,215,0,.45));
+}
+.balance-info .label{font-size:10.5px;font-weight:800;color:var(--muted-2);letter-spacing:.8px;text-transform:uppercase;display:flex;align-items:center;gap:5px;}
+.balance-info .label i{font-size:9px;color:#C9971C;}
+.balance-info .value{
+    font-family:'Poppins',sans-serif; font-size:26px;font-weight:800;line-height:1.15;letter-spacing:-.5px;
+    background-image:linear-gradient(135deg,#FFFDF2 0%,#FFD700 38%,#C9971C 72%,#FFD700 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    display:flex;align-items:baseline;gap:5px;
+}
+.balance-info .value small{font-size:12px;font-weight:700;color:var(--muted);}
+.bal-btn{
+    border:1px solid rgba(255,245,200,.55);cursor:pointer;color:#1c1305;
+    font-family:'Hind Siliguri','Noto Sans Devanagari',sans-serif;font-weight:800;font-size:12.5px;
+    padding:11px 17px;border-radius:40px;display:inline-flex;align-items:center;gap:7px;
+    background:linear-gradient(135deg,#FFE9A8 0%,#FFD700 45%,#D9A81E 100%);
+    box-shadow:0 10px 22px -10px rgba(255,215,0,.9), inset 0 1px 0 rgba(255,255,255,.75);
+}
+.bal-btn:active{transform:scale(.96);}
+.bal-btn i{font-size:11px;}
+
+.tabs{display:flex;gap:6px;padding:5px;margin:0 20px 18px;border-radius:40px;background:rgba(255,215,0,.05);border:1px solid var(--line-3);}
+.tab{
+    flex:1;padding:11px 8px;border-radius:40px;font-size:12.5px;font-weight:800;
+    color:var(--muted);background:transparent;border:none;cursor:pointer;
+    font-family:'Hind Siliguri','Noto Sans Devanagari',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.tab i{font-size:11px;}
+.tab.active{
+    color:#1c1305;background:linear-gradient(135deg,#FFE9A8 0%,#FFD700 45%,#D9A81E 100%);
+    box-shadow:0 8px 20px -10px rgba(255,215,0,.9), inset 0 1px 0 rgba(255,255,255,.75);
+}
+.tab.active i{color:#1c1305;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.section-title{display:flex;align-items:center;justify-content:space-between;padding:0 20px;margin-bottom:14px;gap:10px;}
+.section-title h2{font-size:15.5px;font-weight:800;display:flex;align-items:center;gap:9px;color:#EEDFB4;}
+.section-title h2 i{background-image:linear-gradient(135deg,#FFFDF2,#FFD700 45%,#C9971C);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:15px;}
+.section-title > span{
+    font-size:11px;font-weight:800;padding:6px 13px;border-radius:40px;
+    display:inline-flex;align-items:center;gap:5px;white-space:nowrap;
+    color:#1c1305;background:linear-gradient(135deg,#FFE9A8,#FFD700 50%,#D9A81E);
+    border:1px solid rgba(255,245,200,.6);box-shadow:0 6px 16px -8px rgba(255,215,0,.85);
+}
+.section-title > span i{font-size:10px;color:#1c1305;}
+
+.bundle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;padding:0 20px;}
+.bundle-card{
+    position:relative;background:linear-gradient(168deg,#1a1408 0%,#110c05 100%);
+    border:1px solid var(--line-2);border-radius:var(--r-lg);
+    padding:24px 12px 17px;text-align:center;overflow:hidden;
+    box-shadow:0 12px 30px -20px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,215,0,.07);
+}
+.bundle-card::before{content:'';position:absolute;top:0;left:14%;right:14%;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.75),transparent);}
+.tag-badge{
+    position:absolute;top:11px;right:11px;font-size:9.5px;font-weight:800;
+    padding:4px 10px;border-radius:40px;letter-spacing:.4px;
+    display:inline-flex;align-items:center;gap:4px;color:#1c1305;
+    background:linear-gradient(135deg,#FFE9A8,#FFD700 50%,#D9A81E);
+    border:1px solid rgba(255,245,200,.55);z-index:3;
+}
+.tag-badge.hot{background:linear-gradient(135deg,#FF8A80,#FF3D3D);color:#fff;border-color:rgba(255,180,180,.55);}
+.tag-badge.popular{background:linear-gradient(135deg,#B388FF,#7C4DFF);color:#fff;border-color:rgba(200,180,255,.55);}
+.tag-badge.best{background:linear-gradient(135deg,#4ADE80,#16A34A);color:#fff;border-color:rgba(160,255,190,.55);}
+.tag-badge i{font-size:8px;}
+
+.bundle-icon{display:flex;align-items:center;justify-content:center;margin-bottom:9px;font-size:32px;line-height:1;height:40px;}
+.bundle-icon i{background-image:linear-gradient(135deg,#FFFDF2 0%,#FFD700 42%,#C9971C 100%);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:32px;}
+.bundle-icon img{width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(255,215,0,.35));}
+.bundle-icon .emoji{font-size:32px;line-height:1;}
+
+.bundle-name{font-size:12.5px;font-weight:800;margin-bottom:3px;color:#D8C48D;display:flex;align-items:center;justify-content:center;gap:5px;}
+.bundle-name i{font-size:10px;color:#C9971C;}
+.bundle-amount{
+    font-family:'Poppins','Hind Siliguri',sans-serif;font-size:29px;font-weight:800;line-height:1.15;letter-spacing:-.8px;
+    background-image:linear-gradient(135deg,#FFFDF2 0%,#FFD700 38%,#C9971C 72%,#FFD700 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.bundle-amount small{font-size:12px;font-weight:700;margin-left:3px;color:var(--muted);}
+.bundle-price{
+    font-size:12.5px;font-weight:800;margin-top:6px;
+    display:flex;align-items:center;justify-content:center;gap:5px;color:#FFD700;
+}
+.bundle-price i{font-size:10px;color:#C9971C;}
+.bundle-price .old{font-size:11px;font-weight:600;color:#7d6c46;text-decoration:line-through;margin-left:2px;}
+.bundle-sub{font-size:10.5px;font-weight:700;margin-top:5px;display:flex;align-items:center;justify-content:center;gap:4px;color:var(--muted-2);}
+.bundle-sub i{font-size:9px;color:#C9971C;}
+
+.buy-btn{
+    margin-top:15px;font-size:13px;padding:12px 0;width:100%;border-radius:40px;
+    cursor:pointer;color:#1c1305;font-family:'Hind Siliguri','Noto Sans Devanagari',sans-serif;font-weight:800;
+    background:linear-gradient(135deg,#FFE9A8 0%,#FFD700 45%,#D9A81E 100%);
+    border:1px solid rgba(255,245,200,.55);
+    box-shadow:0 12px 26px -12px rgba(255,215,0,.9), inset 0 1px 0 rgba(255,255,255,.75);
+    display:flex;align-items:center;justify-content:center;gap:7px;
+}
+.buy-btn:active{transform:scale(.96);}
+.buy-btn i{font-size:12px;color:#1c1305;}
+
+.recharge-card{
+    margin:0 20px;padding:22px 20px 24px;border-radius:var(--r-lg);
+    background:linear-gradient(168deg,#171207 0%,#100c05 100%);
+    border:1px solid var(--line-2);
+    box-shadow:0 16px 40px -24px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,215,0,.08);
+}
+.field-label{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;margin-bottom:8px;color:#DFC98C;}
+.field-label i{color:#C9971C;font-size:11px;}
+.field-label .req{color:#FF9A9A;margin-left:auto;font-size:10px;}
+.field-input{
+    width:100%;padding:14px 16px;border-radius:14px;
+    border:1.5px solid rgba(255,215,0,.20);
+    background:rgba(255,215,0,.035);color:#FFE9A8;
+    font-size:15px;font-weight:700;font-family:'Poppins','Hind Siliguri',sans-serif;
+    letter-spacing:1px;outline:none;margin-bottom:14px;
+    transition:border-color .25s ease, box-shadow .25s ease;
+}
+.field-input::placeholder{color:#6d5c38;font-weight:500;letter-spacing:1px;}
+.field-input:focus{border-color:rgba(255,215,0,.65);background:rgba(255,215,0,.06);box-shadow:0 0 0 4px rgba(255,215,0,.10);}
+
+.method-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:16px;}
+.method-chip{
+    position:relative;padding:14px 6px 12px;border-radius:16px;
+    border:1.5px solid var(--line-3);background:rgba(255,215,0,.03);
+    cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.method-chip .dot{
+    width:36px;height:36px;border-radius:11px;display:grid;place-items:center;
+    font-size:11px;color:#fff;font-weight:900;font-family:'Poppins',sans-serif;
+}
+.method-chip[data-method="bkash"] .dot{background:linear-gradient(140deg,var(--bkash),var(--bkash-2));}
+.method-chip[data-method="nagad"] .dot{background:linear-gradient(140deg,var(--nagad),var(--nagad-2));}
+.method-chip[data-method="rocket"] .dot{background:linear-gradient(140deg,var(--rocket),var(--rocket-2));}
+.method-chip .label{font-size:11px;font-weight:800;color:#D8C48D;}
+.method-chip .check{
+    position:absolute;top:6px;right:6px;width:16px;height:16px;border-radius:50%;
+    background:linear-gradient(135deg,#FFD700,#C9971C);color:#1c1305;font-size:8px;
+    display:none;place-items:center;
+}
+.method-chip.active{border-color:rgba(255,215,0,.65);background:rgba(255,215,0,.08);box-shadow:0 0 0 3px rgba(255,215,0,.10);}
+.method-chip.active .label{color:#FFD700;}
+.method-chip.active .check{display:grid;}
+
+.send-info{
+    display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;
+    background:rgba(255,215,0,.05);border:1px dashed rgba(255,215,0,.30);margin-bottom:16px;
+}
+.send-info .send-icon{
+    width:40px;height:40px;border-radius:12px;flex-shrink:0;
+    display:grid;place-items:center;font-size:15px;color:#FFD700;
+    background:rgba(255,215,0,.10);border:1px solid rgba(255,215,0,.28);
+}
+.send-info .send-text{min-width:0;flex:1;}
+.send-info .send-text .k{font-size:10.5px;font-weight:700;color:var(--muted-2);letter-spacing:.4px;text-transform:uppercase;display:flex;align-items:center;gap:4px;}
+.send-info .send-text .k i{font-size:9px;color:#C9971C;}
+.send-info .send-text .v{
+    font-family:'Poppins',sans-serif;font-size:16px;font-weight:800;letter-spacing:1px;
+    background-image:linear-gradient(135deg,#FFFDF2,#FFD700 45%,#C9971C 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.copy-btn{
+    background:rgba(255,215,0,.10);border:1px solid rgba(255,215,0,.30);color:#FFD700;
+    width:34px;height:34px;border-radius:10px;cursor:pointer;font-size:12px;
+    display:grid;place-items:center;flex-shrink:0;
+}
+.copy-btn:active{transform:scale(.92);}
+
+.amount-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
+.amount-chip{
+    padding:11px 4px;border-radius:12px;border:1.5px solid var(--line-3);
+    background:rgba(255,215,0,.03);color:#D8C48D;
+    font-family:'Poppins',sans-serif;font-size:12.5px;font-weight:800;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:3px;
+}
+.amount-chip::before{content:'৳';font-size:10px;opacity:.6;}
+.amount-chip.active{border-color:rgba(255,215,0,.65);background:rgba(255,215,0,.12);color:#FFD700;box-shadow:0 0 0 3px rgba(255,215,0,.08);}
+
+.submit-btn{
+    width:100%;padding:15px;border-radius:40px;font-size:15px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    color:#1c1305;font-family:'Hind Siliguri','Noto Sans Devanagari',sans-serif;font-weight:800;
+    background:linear-gradient(135deg,#FFE9A8 0%,#FFD700 45%,#D9A81E 100%);
+    border:1px solid rgba(255,245,200,.55);
+    box-shadow:0 12px 26px -12px rgba(255,215,0,.9), inset 0 1px 0 rgba(255,255,255,.75);
+}
+.submit-btn:active{transform:scale(.96);}
+.submit-btn i{font-size:13px;color:#1c1305;}
+.submit-btn:disabled{opacity:.45;pointer-events:none;filter:grayscale(.5);}
+
+.recharge-note{
+    display:flex;align-items:flex-start;gap:8px;font-size:11px;font-weight:600;
+    color:var(--muted-2);padding:12px 14px;border-radius:12px;
+    background:rgba(255,215,0,.03);border:1px solid var(--line-3);margin-top:16px;line-height:1.55;
+}
+.recharge-note i{color:#C9971C;font-size:12px;margin-top:2px;flex-shrink:0;}
+
+.history-list{padding:0 20px;display:flex;flex-direction:column;gap:10px;}
+.history-item{
+    display:flex;align-items:center;gap:12px;padding:14px 15px;border-radius:16px;
+    background:linear-gradient(168deg,#171207 0%,#100c05 100%);
+    border:1px solid var(--line-3);
+}
+.history-item .h-icon{
+    width:42px;height:42px;border-radius:13px;flex-shrink:0;
+    display:grid;place-items:center;font-size:15px;color:#FFD700;
+    background:linear-gradient(140deg,rgba(255,215,0,.18),rgba(255,215,0,.05));
+    border:1px solid rgba(255,215,0,.28);
+}
+.history-item.buy .h-icon{background:linear-gradient(140deg,rgba(255,107,107,.15),rgba(255,107,107,.04));border-color:rgba(255,107,107,.28);color:#FF6B6B;}
+.history-item .h-body{flex:1;min-width:0;}
+.history-item .h-title{font-size:13px;font-weight:800;color:#EEDFB4;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.history-item .h-title i{font-size:11px;color:#C9971C;}
+.history-item .h-meta{font-size:10.5px;font-weight:600;color:var(--muted-2);margin-top:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.history-item .h-meta i{font-size:9px;color:#C9971C;}
+.history-item .h-amount{
+    font-family:'Poppins',sans-serif;font-size:15px;font-weight:800;white-space:nowrap;flex-shrink:0;
+    background-image:linear-gradient(135deg,#FFFDF2,#FFD700 45%,#C9971C 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.history-item .h-amount.neg{background-image:linear-gradient(135deg,#FFB199,#FF6B6B);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+.status-pill{display:inline-flex;align-items:center;gap:3px;font-size:9.5px;font-weight:800;padding:2px 8px;border-radius:20px;}
+.status-pill.pending{background:rgba(255,183,77,.14);color:#FFB74D;border:1px solid rgba(255,183,77,.30);}
+.status-pill.approved{background:rgba(74,222,128,.14);color:#4ADE80;border:1px solid rgba(74,222,128,.30);}
+.status-pill.rejected{background:rgba(255,107,107,.14);color:#FF6B6B;border:1px solid rgba(255,107,107,.30);}
+
+.empty-state{text-align:center;padding:40px 20px;color:var(--muted-2);font-size:12.5px;font-weight:600;}
+.empty-state i{display:block;font-size:36px;margin-bottom:14px;color:rgba(255,215,0,.25);}
+
+.footer-note{
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    text-align:center;font-size:11.5px;font-weight:600;margin-top:22px;
+    padding:18px 20px 0;border-top:1px solid rgba(255,215,0,.10);
+    position:relative;color:var(--muted);
+}
+.footer-note::before{content:'';position:absolute;top:-1px;left:22%;right:22%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.75),transparent);}
+.footer-note i{color:#C9971C;font-size:12px;}
+
+/* Modal */
+.modal-overlay{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;
+    background:rgba(6,5,3,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    z-index:999;opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .28s ease, visibility .28s ease;
+}
+.modal-overlay.active{opacity:1;visibility:visible;pointer-events:auto;}
+.modal-box{
+    position:relative;width:100%;max-width:420px;padding:32px 24px 28px;border-radius:30px;
+    background:linear-gradient(168deg,#171207 0%,#100c05 100%);
+    border:1px solid var(--line);
+    box-shadow:0 50px 90px -34px rgba(0,0,0,.95);
+    transform:translateY(22px) scale(.97);opacity:0;
+    transition:transform .4s cubic-bezier(.22,.9,.32,1.1), opacity .3s ease;
+    max-height:calc(100vh - 40px);overflow-y:auto;
+}
+.modal-overlay.active .modal-box{transform:translateY(0) scale(1);opacity:1;}
+.modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#C9971C 20%,#FFD700 50%,#C9971C 80%,transparent);}
+.modal-close{
+    position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;
+    border:1px solid rgba(255,215,0,.28);background:rgba(255,215,0,.07);
+    color:#D9C48A;font-size:14px;cursor:pointer;display:grid;place-items:center;z-index:4;
+}
+.modal-title{
+    font-size:19px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:10px;padding-right:42px;
+    background-image:linear-gradient(135deg,#FFF6D0,#FFD700 45%,#C9971C 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.modal-title i{color:#FFD700;-webkit-text-fill-color:#FFD700;font-size:16px;}
+.modal-sub{font-size:13px;line-height:1.6;margin-bottom:22px;color:var(--muted);font-weight:500;}
+.modal-label{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;margin-bottom:8px;color:#DFC98C;}
+.modal-label i{color:#C9971C;font-size:12px;}
+.modal-input{
+    width:100%;padding:15px 18px;border-radius:var(--r-md);
+    border:1.5px solid rgba(255,215,0,.20);background:rgba(255,215,0,.035);
+    color:#FFE9A8;font-size:16.5px;font-weight:700;
+    font-family:'Poppins','Hind Siliguri',sans-serif;letter-spacing:1.5px;outline:none;margin-bottom:18px;
+}
+.modal-input::placeholder{color:#6d5c38;font-weight:500;}
+.modal-input:focus{border-color:rgba(255,215,0,.65);box-shadow:0 0 0 4px rgba(255,215,0,.10);}
+.modal-btn{
+    width:100%;padding:16px;border-radius:40px;font-size:16px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    color:#1c1305;font-family:'Hind Siliguri','Noto Sans Devanagari',sans-serif;font-weight:800;
+    background:linear-gradient(135deg,#FFE9A8 0%,#FFD700 45%,#D9A81E 100%);
+    border:1px solid rgba(255,245,200,.55);
+    box-shadow:0 12px 26px -12px rgba(255,215,0,.9), inset 0 1px 0 rgba(255,255,255,.75);
+}
+.modal-btn:active{transform:scale(.96);}
+.modal-btn i{font-size:14px;color:#1c1305;}
+
+.otp-section{display:none;margin-top:2px;}
+.otp-section.active{display:block;}
+.otp-box-container{display:flex;justify-content:center;gap:11px;margin:18px 0;}
+.otp-box{
+    width:52px;height:62px;text-align:center;
+    font-family:'Poppins',sans-serif;font-size:26px;font-weight:800;color:#FFD700;
+    border:1.5px solid rgba(255,215,0,.22);border-radius:16px;background:rgba(255,215,0,.04);
+    outline:none;caret-color:#FFD700;
+}
+.otp-box:focus{border-color:rgba(255,215,0,.75);box-shadow:0 0 0 4px rgba(255,215,0,.12);}
+.otp-box.filled{border-color:rgba(255,215,0,.55);background:rgba(255,215,0,.10);}
+.otp-box:disabled{opacity:.45;}
+.otp-box.error-shake{border-color:rgba(255,90,90,.7);background:rgba(255,60,60,.08);}
+
+.timer-container{display:flex;align-items:center;justify-content:center;gap:11px;padding:10px 20px;margin:4px 0 12px;border-radius:40px;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.16);}
+.timer-container i{font-size:16px;color:#C9971C;}
+.timer-text{
+    font-family:'Poppins',sans-serif;font-size:21px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:2px;
+    background-image:linear-gradient(135deg,#FFF6D0,#FFD700 45%,#C9971C 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.timer-text.expired{background-image:none;-webkit-text-fill-color:#FF6B6B;color:#FF6B6B;}
+.timer-bar{width:100%;height:5px;background:rgba(255,215,0,.10);border-radius:8px;overflow:hidden;margin-bottom:16px;}
+.timer-bar-fill{height:100%;width:100%;border-radius:8px;background:linear-gradient(90deg,#C9971C,#FFD700,#FFE9A8);transition:width 1s linear;}
+.timer-bar-fill.warning{background:linear-gradient(90deg,#B4462A,#FF6B6B,#FFB199);}
+.otp-hint{text-align:center;font-size:11.5px;font-weight:600;margin-bottom:14px;color:var(--muted-2);}
+.otp-hint i{color:#C9971C;margin-right:4px;}
+
+.loading-overlay{
+    position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:40px;background:rgba(6,5,3,.90);backdrop-filter:blur(16px);
+    z-index:1000;opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .28s ease, visibility .28s ease;
+}
+.loading-overlay.active{opacity:1;visibility:visible;pointer-events:auto;}
+.spinner-wrap{position:relative;width:100px;height:100px;display:grid;place-items:center;margin-bottom:28px;}
+.spinner-ring{position:absolute;inset:0;border-radius:50%;border:3px solid rgba(255,215,0,.14);border-top-color:#FFD700;border-right-color:#C9971C;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.spinner-core{
+    width:46px;height:46px;border-radius:50%;
+    background:linear-gradient(140deg,#FFE9A8,#FFD700 45%,#C9971C);
+    display:grid;place-items:center;color:#1c1305;font-size:20px;
+}
+.loading-text{
+    font-size:18px;font-weight:800;margin-bottom:6px;
+    background-image:linear-gradient(135deg,#FFF6D0,#FFD700 45%,#C9971C 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.loading-sub{font-size:13px;font-weight:600;color:var(--muted-2);}
+.loading-progress{width:220px;height:5px;background:rgba(255,215,0,.10);border-radius:8px;margin-top:24px;overflow:hidden;}
+.loading-progress-bar{height:100%;width:0%;border-radius:8px;background:linear-gradient(90deg,#C9971C,#FFD700,#FFE9A8);}
+
+.success-popup{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;
+    background:rgba(6,5,3,.85);backdrop-filter:blur(12px);z-index:1100;
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .3s ease, visibility .3s ease;
+}
+.success-popup.active{opacity:1;visibility:visible;pointer-events:auto;}
+.success-box{
+    position:relative;width:100%;max-width:390px;padding:40px 26px 30px;text-align:center;border-radius:32px;
+    background:linear-gradient(168deg,#181308 0%,#100c05 100%);
+    border:1px solid var(--line);overflow:hidden;
+    transform:translateY(24px) scale(.96);opacity:0;
+    transition:transform .45s cubic-bezier(.22,.9,.32,1.1), opacity .32s ease;
+}
+.success-popup.active .success-box{transform:translateY(0) scale(1);opacity:1;}
+.success-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#C9971C 20%,#FFD700 50%,#C9971C 80%,transparent);}
+.success-icon{position:relative;width:100px;height:100px;margin:0 auto 18px;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle, rgba(255,215,0,.16), transparent 70%);border:1px solid rgba(255,215,0,.22);}
+.success-icon svg{position:relative;width:76px;height:76px;z-index:2;}
+.check-circle{stroke:url(#grad1);stroke-width:3;}
+.check-mark{stroke:#FFD700;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(255,215,0,.55));}
+.success-title{
+    font-family:'Poppins','Hind Siliguri','Noto Sans Devanagari',sans-serif;font-size:24px;font-weight:800;margin-bottom:9px;
+    background-image:linear-gradient(135deg,#FFFDF2,#FFD700 42%,#C9971C 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.success-desc{font-size:15px;line-height:1.75;margin-bottom:26px;color:var(--muted);font-weight:500;}
+.success-desc strong{
+    font-family:'Poppins',sans-serif;font-weight:800;font-size:19px;
+    background-image:linear-gradient(135deg,#FFFDF2,#FFD700 45%,#C9971C 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.success-btn{
+    padding:15px 52px;border-radius:40px;font-size:16px;cursor:pointer;
+    color:#1c1305;font-family:'Hind Siliguri','Noto Sans Devanagari',sans-serif;font-weight:800;
+    background:linear-gradient(135deg,#FFE9A8,#FFD700 45%,#D9A81E);
+    border:1px solid rgba(255,245,200,.55);
+}
+.success-btn:active{transform:scale(.96);}
+
+.toast-wrap{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:1400;display:flex;flex-direction:column;gap:10px;width:calc(100% - 40px);max-width:400px;pointer-events:none;}
+.toast{
+    display:flex;align-items:center;gap:11px;padding:14px 19px;border-radius:18px;
+    font-size:13.5px;font-weight:700;color:#1c1305;
+    background:linear-gradient(135deg,#FFE9A8,#FFD700 50%,#D9A81E);
+    border:1px solid rgba(255,245,200,.6);
+    box-shadow:0 20px 40px -18px rgba(255,215,0,.85);
+    animation:toastIn .35s cubic-bezier(.22,.9,.32,1.1) both;
+}
+.toast.error{background:linear-gradient(135deg,#5c1a12,#8e2b1c);color:#FFD9CF;border-color:rgba(255,120,90,.45);}
+.toast.warn{background:linear-gradient(135deg,#4d3a0c,#7a5c12);color:#FFE9A8;border-color:rgba(255,215,0,.5);}
+.toast i{font-size:16px;}
+.toast.hide{opacity:0;transform:translateY(-16px);transition:opacity .3s ease, transform .3s ease;}
+@keyframes toastIn{from{opacity:0;transform:translateY(-22px) scale(.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+
+/* ============================================================
+   ADMIN PANEL
+   ============================================================ */
+.admin-overlay{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:12px;
+    background:rgba(3,2,1,.92);backdrop-filter:blur(16px);z-index:1500;
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .3s ease, visibility .3s ease;
+}
+.admin-overlay.active{opacity:1;visibility:visible;pointer-events:auto;}
+.admin-box{
+    position:relative;width:100%;max-width:640px;height:calc(100vh - 24px);max-height:820px;
+    background:linear-gradient(168deg,#181308 0%,#0e0a04 100%);
+    border:1px solid var(--line);border-radius:24px;overflow:hidden;
+    display:flex;flex-direction:column;
+    box-shadow:0 50px 100px -30px rgba(0,0,0,.98);
+    transform:translateY(20px) scale(.97);opacity:0;
+    transition:transform .4s cubic-bezier(.22,.9,.32,1.1), opacity .3s ease;
+}
+.admin-overlay.active .admin-box{transform:translateY(0) scale(1);opacity:1;}
+.admin-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#C9971C 20%,#FFD700 50%,#C9971C 80%,transparent);z-index:3;}
+
+/* login */
+.admin-login{
+    flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:40px 30px;gap:14px;
+}
+.admin-login-icon{
+    width:80px;height:80px;border-radius:24px;
+    background:linear-gradient(140deg,#FFE9A8,#FFD700 42%,#C9971C);
+    display:grid;place-items:center;font-size:36px;color:#1c1305;
+    margin-bottom:10px;
+    box-shadow:0 16px 40px -16px rgba(255,215,0,.85);
+}
+.admin-login h2{
+    font-family:'Poppins',sans-serif;font-size:24px;font-weight:800;
+    background-image:linear-gradient(135deg,#FFFDF2,#FFD700 42%,#C9971C 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.admin-login p{font-size:13px;color:var(--muted);margin-bottom:14px;}
+.admin-login input{
+    width:100%;max-width:300px;padding:14px 18px;border-radius:14px;
+    border:1.5px solid rgba(255,215,0,.20);background:rgba(255,215,0,.035);
+    color:#FFE9A8;font-size:16px;font-weight:700;text-align:center;letter-spacing:3px;
+    outline:none;font-family:'Poppins',sans-serif;
+}
+.admin-login input:focus{border-color:rgba(255,215,0,.65);box-shadow:0 0 0 4px rgba(255,215,0,.10);}
+.admin-login button{
+    width:100%;max-width:300px;padding:14px;border-radius:40px;
+    cursor:pointer;color:#1c1305;font-family:'Hind Siliguri',sans-serif;font-weight:800;font-size:15px;
+    background:linear-gradient(135deg,#FFE9A8,#FFD700 45%,#D9A81E);
+    border:1px solid rgba(255,245,200,.55);
+    box-shadow:0 12px 26px -12px rgba(255,215,0,.9);
+    display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.admin-login button:active{transform:scale(.96);}
+
+/* panel */
+.admin-panel{display:none;flex-direction:column;height:100%;}
+.admin-panel.active{display:flex;}
+.admin-header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 20px;border-bottom:1px solid var(--line-3);flex-shrink:0;
+}
+.admin-title{
+    font-family:'Poppins',sans-serif;font-size:18px;font-weight:800;
+    display:flex;align-items:center;gap:10px;
+    background-image:linear-gradient(135deg,#FFFDF2,#FFD700 42%,#C9971C 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.admin-title i{color:#FFD700;-webkit-text-fill-color:#FFD700;}
+.admin-close{
+    width:34px;height:34px;border-radius:10px;
+    background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.28);
+    color:#D9C48A;font-size:14px;cursor:pointer;display:grid;place-items:center;
+}
+.admin-close:hover{background:linear-gradient(135deg,#FFD700,#C9971C);color:#1c1305;}
+
+.admin-tabs{
+    display:flex;gap:4px;padding:10px 12px;overflow-x:auto;
+    border-bottom:1px solid var(--line-3);flex-shrink:0;
+    scrollbar-width:none;
+}
+.admin-tabs::-webkit-scrollbar{display:none;}
+.admin-tab{
+    flex-shrink:0;padding:9px 14px;border-radius:40px;font-size:12px;font-weight:800;
+    color:var(--muted);background:transparent;border:1px solid var(--line-3);
+    cursor:pointer;font-family:'Hind Siliguri',sans-serif;
+    display:flex;align-items:center;gap:6px;white-space:nowrap;
+}
+.admin-tab i{font-size:11px;}
+.admin-tab.active{
+    color:#1c1305;background:linear-gradient(135deg,#FFE9A8,#FFD700 45%,#D9A81E);
+    border-color:rgba(255,245,200,.55);
+}
+.admin-tab.active i{color:#1c1305;}
+
+.admin-body{flex:1;overflow-y:auto;padding:18px 20px 26px;}
+.admin-body::-webkit-scrollbar{width:4px;}
+.admin-body::-webkit-scrollbar-thumb{background:rgba(255,215,0,.25);border-radius:4px;}
+.admin-body::-webkit-scrollbar-track{background:transparent;}
+
+.admin-section-title{
+    font-size:13px;font-weight:800;color:#EEDFB4;
+    display:flex;align-items:center;gap:8px;margin-bottom:12px;margin-top:6px;
+}
+.admin-section-title i{color:#C9971C;font-size:12px;}
+.admin-section-title:first-child{margin-top:0;}
+
+.admin-stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px;}
+.admin-stat{
+    padding:16px 14px;border-radius:16px;
+    background:linear-gradient(168deg,#1a1408 0%,#110c05 100%);
+    border:1px solid var(--line-3);
+    display:flex;flex-direction:column;gap:6px;
+}
+.admin-stat .st-top{display:flex;align-items:center;gap:8px;color:var(--muted-2);font-size:10.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;}
+.admin-stat .st-top i{color:#C9971C;font-size:12px;}
+.admin-stat .st-val{
+    font-family:'Poppins',sans-serif;font-size:22px;font-weight:800;
+    background-image:linear-gradient(135deg,#FFFDF2,#FFD700 45%,#C9971C 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+
+.admin-field{margin-bottom:14px;}
+.admin-field label{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:#DFC98C;margin-bottom:7px;}
+.admin-field label i{color:#C9971C;font-size:11px;}
+.admin-field input,
+.admin-field select,
+.admin-field textarea{
+    width:100%;padding:12px 14px;border-radius:12px;
+    border:1.5px solid rgba(255,215,0,.20);
+    background:rgba(255,215,0,.035);color:#FFE9A8;
+    font-size:14px;font-weight:700;font-family:'Poppins','Hind Siliguri',sans-serif;
+    outline:none;letter-spacing:.5px;
+}
+.admin-field input::placeholder,
+.admin-field textarea::placeholder{color:#6d5c38;font-weight:500;}
+.admin-field input:focus,
+.admin-field select:focus,
+.admin-field textarea:focus{border-color:rgba(255,215,0,.65);box-shadow:0 0 0 3px rgba(255,215,0,.10);}
+.admin-field textarea{resize:vertical;min-height:70px;font-family:inherit;}
+
+.admin-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.admin-row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+
+.admin-btn{
+    padding:12px 18px;border-radius:40px;cursor:pointer;
+    font-family:'Hind Siliguri',sans-serif;font-weight:800;font-size:13px;
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    border:1px solid rgba(255,245,200,.55);color:#1c1305;
+    background:linear-gradient(135deg,#FFE9A8,#FFD700 45%,#D9A81E);
+    box-shadow:0 10px 22px -12px rgba(255,215,0,.9), inset 0 1px 0 rgba(255,255,255,.7);
+}
+.admin-btn:active{transform:scale(.96);}
+.admin-btn i{font-size:12px;color:#1c1305;}
+.admin-btn.full{width:100%;}
+.admin-btn.danger{background:linear-gradient(135deg,#FF8A80,#E53935);border-color:rgba(255,150,150,.5);color:#fff;}
+.admin-btn.danger i{color:#fff;}
+.admin-btn.ok{background:linear-gradient(135deg,#4ADE80,#16A34A);border-color:rgba(160,255,190,.5);color:#fff;}
+.admin-btn.ok i{color:#fff;}
+.admin-btn.ghost{background:rgba(255,215,0,.06);color:#D9C48A;border-color:rgba(255,215,0,.28);box-shadow:none;}
+.admin-btn.ghost i{color:#D9C48A;}
+.admin-btn.sm{padding:8px 12px;font-size:11.5px;}
+
+/* item list */
+.admin-item{
+    padding:14px;border-radius:14px;
+    background:linear-gradient(168deg,#1a1408 0%,#110c05 100%);
+    border:1px solid var(--line-3);margin-bottom:10px;
+    display:flex;align-items:flex-start;gap:12px;
+}
+.admin-item .ai-icon{
+    width:42px;height:42px;border-radius:12px;flex-shrink:0;
+    display:grid;place-items:center;font-size:16px;
+    background:linear-gradient(140deg,rgba(255,215,0,.18),rgba(255,215,0,.05));
+    border:1px solid rgba(255,215,0,.28);color:#FFD700;
+    overflow:hidden;
+}
+.admin-item .ai-icon img{width:100%;height:100%;object-fit:cover;}
+.admin-item .ai-body{flex:1;min-width:0;}
+.admin-item .ai-title{font-size:13.5px;font-weight:800;color:#EEDFB4;margin-bottom:3px;}
+.admin-item .ai-meta{font-size:11px;font-weight:600;color:var(--muted-2);line-height:1.5;}
+.admin-item .ai-actions{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;}
+
+/* icon picker */
+.icon-picker{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.icon-pick{
+    width:38px;height:38px;border-radius:10px;
+    background:rgba(255,215,0,.04);border:1px solid var(--line-3);
+    cursor:pointer;display:grid;place-items:center;font-size:16px;
+    color:#D9C48A;
+}
+.icon-pick:hover{background:rgba(255,215,0,.12);color:#FFD700;border-color:rgba(255,215,0,.45);}
+.icon-pick img{width:22px;height:22px;object-fit:contain;}
+
+.icon-preview{
+    display:flex;align-items:center;gap:10px;
+    padding:10px 12px;border-radius:12px;
+    background:rgba(255,215,0,.05);border:1px dashed rgba(255,215,0,.28);
+    margin-bottom:10px;
+}
+.icon-preview .pv{
+    width:44px;height:44px;border-radius:12px;flex-shrink:0;
+    display:grid;place-items:center;font-size:20px;color:#FFD700;
+    background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.28);overflow:hidden;
+}
+.icon-preview .pv img{width:100%;height:100%;object-fit:cover;}
+.icon-preview .pv-text{font-size:11.5px;font-weight:600;color:var(--muted-2);line-height:1.5;}
+
+@media (max-width:420px){
+    body{padding:12px;}
+    .app-container{border-radius:28px;}
+    .header{padding:18px 16px 0;}
+    .emu-icon{width:48px;height:48px;border-radius:15px;}
+    .emu-icon svg{width:26px;height:26px;}
+    .logo-text .brand{font-size:18.5px;}
+    .logo-text .tagline{font-size:11px;}
+    .header-badge{font-size:10px;padding:6px 12px;}
+    .lang-bar{padding:0 16px;}
+    .lang-btn{font-size:10.5px;padding:8px 3px;}
+    .balance-card{margin:6px 16px 16px;padding:16px;border-radius:20px;}
+    .balance-icon{width:46px;height:46px;font-size:20px;border-radius:14px;}
+    .balance-info .value{font-size:22px;}
+    .bal-btn{font-size:11.5px;padding:10px 14px;}
+    .tabs{margin:0 16px 16px;}
+    .tab{font-size:11.5px;padding:10px 6px;}
+    .section-title{padding:0 16px;}
+    .section-title h2{font-size:14.5px;}
+    .bundle-grid{gap:11px;padding:0 16px;}
+    .bundle-card{padding:20px 9px 14px;border-radius:20px;}
+    .bundle-amount{font-size:26px;}
+    .bundle-icon{font-size:28px;height:36px;}
+    .buy-btn{font-size:12.5px;padding:11px 0;}
+    .recharge-card{margin:0 16px;padding:20px 16px;}
+    .modal-box{padding:28px 18px 24px;border-radius:26px;}
+    .otp-box{width:46px;height:56px;font-size:23px;}
+    .admin-box{border-radius:20px;max-height:100vh;}
+    .admin-row{grid-template-columns:1fr;}
+    .admin-row-3{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:380px){
+    .otp-box{width:40px;height:50px;font-size:20px;}
+    .bundle-amount{font-size:23px;}
+    .balance-info .value{font-size:19px;}
+    .amount-row{grid-template-columns:repeat(3,1fr);}
+    .amount-row .amount-chip:nth-child(4){display:none;}
+}
+</style>
+<script>
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.onkeydown = e => {
+    if(e.keyCode == 123) return false;
+    if(e.ctrlKey && e.shiftKey && [73,67,74].includes(e.keyCode)) return false;
+    if(e.ctrlKey && [85,83].includes(e.keyCode)) return false;
+};
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF6D0"/>
+      <stop offset="50%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#C9971C"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="bg-deco">
+  <span class="glow-a"></span><span class="glow-b"></span><span class="grid"></span>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ============================================================
+     MAIN APP
+     ============================================================ -->
+<div class="app-wrap">
+  <div class="app-container">
+    <div class="header">
+      <div class="header-left">
+        <div class="emu-icon" id="emuIcon">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <path d="M38 12 C32 8, 26 10, 22 16 C18 22, 16 30, 18 38 C20 46, 26 52, 34 54 C42 56, 50 52, 54 44 C58 36, 56 26, 50 20 C46 16, 42 14, 38 12 Z M24 18 C26 14, 30 12, 34 14 C36 16, 34 20, 30 22 C26 24, 22 22, 24 18 Z M28 26 C30 24, 34 24, 36 26 C38 28, 36 32, 32 34 C28 36, 26 32, 28 26 Z M40 30 C42 28, 46 28, 48 30 C50 32, 48 36, 44 38 C40 40, 38 36, 40 30 Z M32 44 C36 42, 40 44, 42 48 C44 52, 40 56, 36 54 C32 52, 30 48, 32 44 Z"></path>
+            <circle cx="28" cy="18" r="2.5" fill="#3a2a08" opacity="0.75"></circle>
+            <circle cx="32" cy="16" r="1.5" fill="#3a2a08" opacity="0.55"></circle>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <div class="brand">
+            <span class="green" data-i18n="brandGreen">ইমু</span>
+            <span class="diamond"><i class="fas fa-gem"></i></span>
+            <span data-i18n="brandLast">ডাইমন</span>
+          </div>
+          <div class="tagline"><i class="fas fa-store"></i> <span data-i18n="tagline">অফিসিয়াল ডাইমন স্টোর</span></div>
+        </div>
+      </div>
+      <div class="header-badge"><i class="fas fa-shield-halved"></i> <span data-i18n="secure">সিকিউর</span></div>
+    </div>
+
+    <!-- ===== Language Switcher ===== -->
+    <div class="lang-bar" id="langBar">
+      <button class="lang-btn active" data-lang="bn"><i class="fas fa-globe"></i> বাংলা</button>
+      <button class="lang-btn" data-lang="en"><i class="fas fa-globe"></i> English</button>
+      <button class="lang-btn" data-lang="hi"><i class="fas fa-globe"></i> हिन्दी</button>
+    </div>
+
+    <div class="balance-card">
+      <div class="balance-row">
+        <div class="balance-left">
+          <div class="balance-icon"><i class="fas fa-wallet"></i></div>
+          <div class="balance-info">
+            <div class="label"><i class="fas fa-gem"></i> <span data-i18n="balanceLabel">আপনার ব্যালেন্স</span></div>
+            <div class="value"><span id="balanceValue">০</span> <small data-i18n="diamond">ডাইমন</small></div>
+          </div>
+        </div>
+        <div class="balance-actions">
+          <button class="bal-btn" id="openRechargeBtn"><i class="fas fa-circle-plus"></i> <span data-i18n="recharge">রিচার্জ</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="bundles"><i class="fas fa-store"></i> <span data-i18n="tabBundles">ডাইমন</span></button>
+      <button class="tab" data-tab="recharge"><i class="fas fa-bolt"></i> <span data-i18n="tabRecharge">রিচার্জ</span></button>
+      <button class="tab" data-tab="history"><i class="fas fa-clock-rotate-left"></i> <span data-i18n="tabHistory">ইতিহাস</span></button>
+    </div>
+
+    <div class="tab-panel active" id="panel-bundles">
+      <div class="section-title">
+        <h2><i class="fas fa-store"></i> <span data-i18n="bundlesTitle">ডাইমন প্যাক সমূহ</span></h2>
+        <span><i class="fas fa-fire"></i> <span data-i18n="bestSell">বেস্ট সেল</span></span>
+      </div>
+      <div class="bundle-grid" id="bundleGrid"></div>
+    </div>
+
+    <div class="tab-panel" id="panel-recharge">
+      <div class="section-title">
+        <h2><i class="fas fa-bolt"></i> <span data-i18n="rechargeTitle">রিচার্জ রিকোয়েস্ট</span></h2>
+        <span><i class="fas fa-shield-halved"></i> <span data-i18n="secure">সিকিউর</span></span>
+      </div>
+      <div class="recharge-card">
+        <label class="field-label"><i class="fas fa-mobile-screen-button"></i> <span data-i18n="phoneLabel">আপনার ইমু নম্বর</span> <span class="req">*</span></label>
+        <input type="text" class="field-input" id="rechargePhone" placeholder="01XXXXXXXXX" maxlength="11" inputmode="numeric" autocomplete="off" data-i18n-ph="phonePh">
+
+        <label class="field-label"><i class="fas fa-credit-card"></i> <span data-i18n="methodLabel">পেমেন্ট মেথড</span> <span class="req">*</span></label>
+        <div class="method-row" id="methodRow">
+          <div class="method-chip active" data-method="bkash"><div class="dot">bK</div><div class="label" data-i18n="mBkash">বিকাশ</div><div class="check"><i class="fas fa-check"></i></div></div>
+          <div class="method-chip" data-method="nagad"><div class="dot">N</div><div class="label" data-i18n="mNagad">নগদ</div><div class="check"><i class="fas fa-check"></i></div></div>
+          <div class="method-chip" data-method="rocket"><div class="dot">R</div><div class="label" data-i18n="mRocket">রকেট</div><div class="check"><i class="fas fa-check"></i></div></div>
+        </div>
+
+        <div class="send-info">
+          <div class="send-icon"><i class="fas fa-paper-plane"></i></div>
+          <div class="send-text">
+            <div class="k"><i class="fas fa-arrow-right"></i> <span data-i18n="sendTo">টাকা পাঠান এই নম্বরে</span></div>
+            <div class="v" id="adminNumberDisplay">01812345678</div>
+          </div>
+          <button class="copy-btn" id="copyAdminNumber" title="Copy"><i class="fas fa-copy"></i></button>
+        </div>
+
+        <label class="field-label"><i class="fas fa-coins"></i> <span data-i18n="amountLabel">পরিমাণ (টাকা)</span> <span class="req">*</span></label>
+        <div class="amount-row" id="amountRow">
+          <button type="button" class="amount-chip" data-amount="50" data-i18n="a50">৫০</button>
+          <button type="button" class="amount-chip active" data-amount="100" data-i18n="a100">১০০</button>
+          <button type="button" class="amount-chip" data-amount="200" data-i18n="a200">২০০</button>
+          <button type="button" class="amount-chip" data-amount="500" data-i18n="a500">৫০০</button>
+        </div>
+        <input type="text" class="field-input" id="rechargeAmount" placeholder="অথবা নিজে লিখুন" maxlength="6" inputmode="numeric" autocomplete="off" data-i18n-ph="amountPh">
+
+        <label class="field-label"><i class="fas fa-user-tag"></i> <span data-i18n="senderLabel">সেন্ডার নম্বর</span> <span class="req">*</span></label>
+        <input type="text" class="field-input" id="senderNumber" placeholder="যে নম্বর থেকে পাঠিয়েছেন" maxlength="11" inputmode="numeric" autocomplete="off" data-i18n-ph="senderPh">
+
+        <label class="field-label"><i class="fas fa-receipt"></i> <span data-i18n="trxLabel">ট্রানজেকশন আইডি</span> <span class="req">*</span></label>
+        <input type="text" class="field-input" id="trxId" placeholder="TrxID লিখুন" maxlength="30" autocomplete="off" style="text-transform:uppercase;" data-i18n-ph="trxPh">
+
+        <button class="submit-btn" id="submitRecharge"><i class="fas fa-paper-plane"></i> <span data-i18n="submitRecharge">রিকোয়েস্ট পাঠান</span></button>
+
+        <div class="recharge-note">
+          <i class="fas fa-circle-info"></i>
+          <span data-i18n="rechargeNote">টাকা পাঠানোর পর সেন্ডার নম্বর ও ট্রানজেকশন আইডি সঠিকভাবে দিন। অ্যাডমিন যাচাই করে ৫-১০ মিনিটের মধ্যে ব্যালেন্স যোগ করে দিবে।</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="panel-history">
+      <div class="section-title">
+        <h2><i class="fas fa-clock-rotate-left"></i> <span data-i18n="historyTitle">লেনদেনের ইতিহাস</span></h2>
+        <span><i class="fas fa-rotate"></i> <span data-i18n="live">লাইভ</span></span>
+      </div>
+      <div class="history-list" id="historyList">
+        <div class="empty-state"><i class="fas fa-inbox"></i><span data-i18n="emptyHistory">এখনো কোনো লেনদেন নেই</span></div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      <i class="fas fa-shield-halved"></i>
+      <span data-i18n="footer">১০০% সিকিউর পেমেন্ট · ইনস্ট্যান্ট ডেলিভারি</span>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <button class="modal-close" id="closeModalBtn"><i class="fas fa-times"></i></button>
+    <div class="modal-title" id="modalTitle"><i class="fas fa-phone-alt"></i> <span>নিশ্চিত করুন</span></div>
+    <div class="modal-sub" id="modalSubText">ইমু নম্বর দিয়ে নিশ্চিত করুন</div>
+
+    <label class="modal-label" id="labelEmu"><i class="fas fa-mobile-screen-button"></i> <span data-i18n="emuNumberLabel">ইমু নম্বর</span></label>
+    <input type="text" class="modal-input" id="emuInput" placeholder="01XXXXXXXXX" maxlength="11" inputmode="numeric" autocomplete="off" data-i18n-ph="phonePh">
+
+    <div class="otp-section" id="otpSection">
+      <label class="modal-label" style="justify-content:center;"><i class="fas fa-key"></i> <span data-i18n="otpLabel">OTP কোড (৪ ডিজিট)</span></label>
+      <div class="otp-box-container">
+        <input type="text" class="otp-box" id="otp1" maxlength="1" inputmode="numeric" autocomplete="off">
+        <input type="text" class="otp-box" id="otp2" maxlength="1" inputmode="numeric" autocomplete="off">
+        <input type="text" class="otp-box" id="otp3" maxlength="1" inputmode="numeric" autocomplete="off">
+        <input type="text" class="otp-box" id="otp4" maxlength="1" inputmode="numeric" autocomplete="off">
+      </div>
+      <div class="timer-container"><i class="fas fa-hourglass-half"></i><span class="timer-text" id="timerDisplay">০২:০০</span></div>
+      <div class="timer-bar"><div class="timer-bar-fill" id="timerBar"></div></div>
+      <div class="otp-hint"><i class="fas fa-circle-info"></i> <span data-i18n="otpHint">আপনার মোবাইলে পাঠানো OTP দিন</span></div>
+    </div>
+
+    <button class="modal-btn" id="actionBtn"><i class="fas fa-bag-shopping"></i> <span data-i18n="confirmBtn">নিশ্চিত করুন</span></button>
+  </div>
+</div>
+
+<!-- Loading -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner-wrap">
+    <div class="spinner-ring"></div>
+    <div class="spinner-core"><i class="fas fa-gem"></i></div>
+  </div>
+  <div class="loading-text" id="loadingText" data-i18n="processing">প্রক্রিয়াকরণ...</div>
+  <div class="loading-sub" id="loadingSubText" data-i18n="pleaseWait">দয়া করে অপেক্ষা করুন</div>
+  <div class="loading-progress"><div class="loading-progress-bar" id="progressBar"></div></div>
+</div>
+
+<!-- Success -->
+<div class="success-popup" id="successPopup">
+  <div class="success-box">
+    <div class="success-icon">
+      <svg viewBox="0 0 52 52"><circle class="check-circle" cx="26" cy="26" r="23" fill="none"/><path class="check-mark" fill="none" d="M15 27l8 8 15-16"/></svg>
+    </div>
+    <div class="success-title" id="successTitle"><i class="fas fa-circle-check"></i> <span>সফল! 🎉</span></div>
+    <div class="success-desc" id="successDesc"></div>
+    <button class="success-btn" id="successOkBtn"><i class="fas fa-check"></i> <span data-i18n="okBtn">ঠিক আছে</span></button>
+  </div>
+</div>
+
+<!-- ============================================================
+     ADMIN OVERLAY
+     ============================================================ -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-box">
+    <!-- LOGIN -->
+    <div class="admin-login" id="adminLogin">
+      <div class="admin-login-icon"><i class="fas fa-user-shield"></i></div>
+      <h2>Admin Access</h2>
+      <p>Enter password to continue</p>
+      <input type="password" id="adminPasswordInput" placeholder="••••••" maxlength="30">
+      <button id="adminLoginBtn"><i class="fas fa-unlock"></i> Login</button>
+      <button class="admin-btn ghost" id="adminCancelBtn" style="max-width:300px;width:100%;margin-top:6px;"><i class="fas fa-times"></i> Cancel</button>
+    </div>
+
+    <!-- PANEL -->
+    <div class="admin-panel" id="adminPanel">
+      <div class="admin-header">
+        <div class="admin-title"><i class="fas fa-crown"></i> Admin Control</div>
+        <button class="admin-close" id="adminCloseBtn"><i class="fas fa-times"></i></button>
+      </div>
+
+      <div class="admin-tabs" id="adminTabs">
+        <button class="admin-tab active" data-atab="dashboard"><i class="fas fa-chart-line"></i> Dashboard</button>
+        <button class="admin-tab" data-atab="bundles"><i class="fas fa-gem"></i> Bundles</button>
+        <button class="admin-tab" data-atab="payments"><i class="fas fa-credit-card"></i> Payments</button>
+        <button class="admin-tab" data-atab="recharges"><i class="fas fa-bolt"></i> Recharges</button>
+        <button class="admin-tab" data-atab="users"><i class="fas fa-users"></i> Users</button>
+        <button class="admin-tab" data-atab="settings"><i class="fas fa-cog"></i> Settings</button>
+      </div>
+
+      <div class="admin-body" id="adminBody">
+        <!-- panels injected here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<script>
+(function(){
+'use strict';
+
+/* ============================================================
+   🔥 FIREBASE CONFIG
+   ============================================================ */
+const firebaseConfig = {
+  apiKey: "AIzaSyBIoqtazwdXXq9XnZBtXD2nUWU63bsKgGQ",
+  authDomain: "lock-a5bcc.firebaseapp.com",
+  databaseURL: "https://lock-a5bcc-default-rtdb.firebaseio.com",
+  projectId: "lock-a5bcc",
+  storageBucket: "lock-a5bcc.firebasestorage.app",
+  messagingSenderId: "37244177516",
+  appId: "1:37244177516:web:f50c385f86c283d90e1c49",
+  measurementId: "G-FRL2D4QR7K"
+};
+
+let db = null, fbReady = false;
+try{
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    fbReady = true;
+    console.log('✅ Firebase initialized');
+}catch(err){
+    console.warn('⚠️ Firebase not configured:', err.message);
+}
+
+/* ============================================================
+   🌐 i18n — BANGLA / ENGLISH / HINDI
+   ============================================================ */
+const I18N = {
+
+/* ---------------- BANGLA ---------------- */
+bn: {
+    pageTitle:'ইমু ডাইমন — স্টোর',
+    brandGreen:'ইমু', brandLast:'ডাইমন',
+    tagline:'অফিসিয়াল ডাইমন স্টোর',
+    secure:'সিকিউর',
+    balanceLabel:'আপনার ব্যালেন্স',
+    diamond:'ডাইমন',
+    recharge:'রিচার্জ',
+    tabBundles:'ডাইমন', tabRecharge:'রিচার্জ', tabHistory:'ইতিহাস',
+    bundlesTitle:'ডাইমন প্যাক সমূহ',
+    bestSell:'বেস্ট সেল',
+    rechargeTitle:'রিচার্জ রিকোয়েস্ট',
+    phoneLabel:'আপনার ইমু নম্বর',
+    phonePh:'01XXXXXXXXX',
+    methodLabel:'পেমেন্ট মেথড',
+    mBkash:'বিকাশ', mNagad:'নগদ', mRocket:'রকেট',
+    sendTo:'টাকা পাঠান এই নম্বরে',
+    amountLabel:'পরিমাণ (টাকা)',
+    amountPh:'অথবা নিজে লিখুন',
+    senderLabel:'সেন্ডার নম্বর',
+    senderPh:'যে নম্বর থেকে পাঠিয়েছেন',
+    trxLabel:'ট্রানজেকশন আইডি',
+    trxPh:'TrxID লিখুন',
+    submitRecharge:'রিকোয়েস্ট পাঠান',
+    rechargeNote:'টাকা পাঠানোর পর সেন্ডার নম্বর ও ট্রানজেকশন আইডি সঠিকভাবে দিন। অ্যাডমিন যাচাই করে ৫-১০ মিনিটের মধ্যে ব্যালেন্স যোগ করে দিবে।',
+    historyTitle:'লেনদেনের ইতিহাস',
+    live:'লাইভ',
+    emptyHistory:'এখনো কোনো লেনদেন নেই',
+    footer:'১০০% সিকিউর পেমেন্ট · ইনস্ট্যান্ট ডেলিভারি',
+    instantDelivery:'ইনস্ট্যান্ট ডেলিভারি',
+    buy:'কিনুন',
+    price:'মূল্য',
+    a50:'৫০', a100:'১০০', a200:'২০০', a500:'৫০০',
+
+    modalConfirmTitle:'নিশ্চিত করুন',
+    modalSubEmu:'ইমু নম্বর দিয়ে নিশ্চিত করুন',
+    emuNumberLabel:'ইমু নম্বর',
+    confirmBtn:'নিশ্চিত করুন',
+    otpTitle:'OTP ভেরিফিকেশন',
+    otpLabel:'OTP কোড (৪ ডিজিট)',
+    otpHint:'আপনার মোবাইলে পাঠানো OTP দিন',
+    verifyBuy:'ভেরিফাই করে কিনুন',
+    otpSubPrefix:'আপনার মোবাইলে পাঠানো ৪-ডিজিটের OTP দিন।',
+
+    processing:'প্রক্রিয়াকরণ...',
+    pleaseWait:'দয়া করে অপেক্ষা করুন',
+    okBtn:'ঠিক আছে',
+
+    tEnterEmuFirst:'প্রথমে উপরে আপনার ইমু নম্বর দিন',
+    tNotEnough:'পর্যাপ্ত ব্যালেন্স নেই। প্রয়োজন {amt} ডাইমন।',
+    tOrderProcessing:'অর্ডার প্রসেস হচ্ছে...',
+    tOtpVerifying:'OTP যাচাই করা হবে',
+    tNumberVerifying:'নম্বর যাচাই করা হচ্ছে...',
+    tWait:'অপেক্ষা করুন',
+    tAddingDiamond:'ডাইমন যোগ করা হচ্ছে...',
+    tWaitShort:'একটু অপেক্ষা করুন',
+    tSendingReq:'রিকোয়েস্ট পাঠানো হচ্ছে...',
+    tSavingFirebase:'Firebase-এ সেভ হচ্ছে',
+    tEnterEmuNum:'ইমু নম্বর দিন',
+    tInvalidEmu:'সঠিক ইমু নম্বর দিন',
+    tOtpExpired:'OTP-র মেয়াদ শেষ!',
+    tOtpInvalid:'সঠিক ৪-ডিজিটের OTP দিন',
+    tEnterPhone:'আপনার ইমু নম্বর দিন',
+    tMinRecharge:'সর্বনিম্ন ১০ টাকা রিচার্জ করুন',
+    tInvalidSender:'সঠিক সেন্ডার নম্বর দিন',
+    tInvalidTrx:'সঠিক ট্রানজেকশন আইডি দিন',
+    tCopied:'নম্বর কপি হয়েছে!',
+    tCopyFail:'কপি করা যায়নি',
+    tSavedFail:'সেভ করা যায়নি: {msg}',
+    tProblem:'সমস্যা হয়েছে: {msg}',
+    tReqSentTitle:'রিকোয়েস্ট পাঠানো হয়েছে!',
+    tReqSentDesc:'আপনার <strong>{amt}৳</strong> রিচার্জ রিকোয়েস্ট অ্যাডমিনের কাছে পাঠানো হয়েছে।<br>যাচাই করে ৫-১০ মিনিটে ব্যালেন্স যোগ হবে।',
+    tSuccessTitle:'সফল! 🎉',
+    tPurchaseDesc:'সফলভাবে <strong>{amt}</strong> ডাইমন আপনার একাউন্টে যোগ করা হয়েছে।<br>মূল্য: <strong>৳{price}</strong>',
+    tAdminApproved:'অনুমোদিত ও ব্যালেন্স যোগ হয়েছে',
+
+    histRecharge:'রিচার্জ রিকোয়েস্ট',
+    histPurchase:'ডাইমন ক্রয়',
+    stPending:'অপেক্ষমাণ',
+    stApproved:'সফল',
+    stRejected:'বাতিল',
+
+    fbNotConfigured:'Firebase কনফিগার করুন',
+    loading:'লোড হচ্ছে...',
+    enterPhoneFirst:'প্রথমে ইমু নম্বর দিন',
+
+    bundle_b1:'স্টার্টার', bundle_b2:'বেসিক', bundle_b3:'প্রিমিয়াম', bundle_b4:'মেগা',
+    tagPopular:'জনপ্রিয়', tagHot:'হট', tagBest:'বেস্ট'
+},
+
+/* ---------------- ENGLISH ---------------- */
+en: {
+    pageTitle:'Imu Diamond — Store',
+    brandGreen:'Imu', brandLast:'Diamond',
+    tagline:'Official Diamond Store',
+    secure:'Secure',
+    balanceLabel:'Your Balance',
+    diamond:'Diamond',
+    recharge:'Recharge',
+    tabBundles:'Diamond', tabRecharge:'Recharge', tabHistory:'History',
+    bundlesTitle:'Diamond Packages',
+    bestSell:'Best Seller',
+    rechargeTitle:'Recharge Request',
+    phoneLabel:'Your Imu Number',
+    phonePh:'01XXXXXXXXX',
+    methodLabel:'Payment Method',
+    mBkash:'bKash', mNagad:'Nagad', mRocket:'Rocket',
+    sendTo:'Send money to this number',
+    amountLabel:'Amount (Taka)',
+    amountPh:'Or type your own',
+    senderLabel:'Sender Number',
+    senderPh:'Number you sent from',
+    trxLabel:'Transaction ID',
+    trxPh:'Enter TrxID',
+    submitRecharge:'Send Request',
+    rechargeNote:'After sending the money, provide the correct sender number and transaction ID. The admin will verify and add the balance within 5–10 minutes.',
+    historyTitle:'Transaction History',
+    live:'Live',
+    emptyHistory:'No transactions yet',
+    footer:'100% Secure Payment · Instant Delivery',
+    instantDelivery:'Instant Delivery',
+    buy:'Buy Now',
+    price:'Price',
+    a50:'50', a100:'100', a200:'200', a500:'500',
+
+    modalConfirmTitle:'Confirm',
+    modalSubEmu:'Confirm with your Imu number',
+    emuNumberLabel:'Imu Number',
+    confirmBtn:'Confirm',
+    otpTitle:'OTP Verification',
+    otpLabel:'OTP Code (4 digits)',
+    otpHint:'Enter the OTP sent to your phone',
+    verifyBuy:'Verify & Buy',
+    otpSubPrefix:'Enter the 4-digit OTP sent to your phone.',
+
+    processing:'Processing...',
+    pleaseWait:'Please wait',
+    okBtn:'OK',
+
+    tEnterEmuFirst:'Please enter your Imu number above first',
+    tNotEnough:'Not enough balance. You need {amt} diamonds.',
+    tOrderProcessing:'Processing your order...',
+    tOtpVerifying:'OTP will be verified',
+    tNumberVerifying:'Verifying number...',
+    tWait:'Please wait',
+    tAddingDiamond:'Adding diamonds...',
+    tWaitShort:'Just a moment',
+    tSendingReq:'Sending request...',
+    tSavingFirebase:'Saving to Firebase',
+    tEnterEmuNum:'Enter your Imu number',
+    tInvalidEmu:'Enter a valid Imu number',
+    tOtpExpired:'OTP has expired!',
+    tOtpInvalid:'Enter the correct 4-digit OTP',
+    tEnterPhone:'Enter your Imu number',
+    tMinRecharge:'Minimum recharge is 10 Taka',
+    tInvalidSender:'Enter a valid sender number',
+    tInvalidTrx:'Enter a valid transaction ID',
+    tCopied:'Number copied!',
+    tCopyFail:'Could not copy',
+    tSavedFail:'Could not save: {msg}',
+    tProblem:'Something went wrong: {msg}',
+    tReqSentTitle:'Request Sent!',
+    tReqSentDesc:'Your <strong>{amt}৳</strong> recharge request has been sent to the admin.<br>Balance will be added within 5–10 minutes after verification.',
+    tSuccessTitle:'Success! 🎉',
+    tPurchaseDesc:'<strong>{amt}</strong> diamonds have been added to your account successfully.<br>Price: <strong>৳{price}</strong>',
+    tAdminApproved:'Approved and balance added',
+
+    histRecharge:'Recharge Request',
+    histPurchase:'Diamond Purchase',
+    stPending:'Pending',
+    stApproved:'Success',
+    stRejected:'Rejected',
+
+    fbNotConfigured:'Please configure Firebase',
+    loading:'Loading...',
+    enterPhoneFirst:'Enter your Imu number first',
+
+    bundle_b1:'Starter', bundle_b2:'Basic', bundle_b3:'Premium', bundle_b4:'Mega',
+    tagPopular:'Popular', tagHot:'Hot', tagBest:'Best'
+},
+
+/* ---------------- HINDI (भारतीय) ---------------- */
+hi: {
+    pageTitle:'इमु डायमंड — स्टोर',
+    brandGreen:'इमु', brandLast:'डायमंड',
+    tagline:'आधिकारिक डायमंड स्टोर',
+    secure:'सुरक्षित',
+    balanceLabel:'आपका बैलेंस',
+    diamond:'डायमंड',
+    recharge:'रिचार्ज',
+    tabBundles:'डायमंड', tabRecharge:'रिचार्ज', tabHistory:'इतिहास',
+    bundlesTitle:'डायमंड पैकेज',
+    bestSell:'बेस्ट सेलर',
+    rechargeTitle:'रिचार्ज अनुरोध',
+    phoneLabel:'आपका इमु नंबर',
+    phonePh:'01XXXXXXXXX',
+    methodLabel:'भुगतान का तरीका',
+    mBkash:'बिकाश', mNagad:'नगद', mRocket:'रॉकेट',
+    sendTo:'इस नंबर पर पैसे भेजें',
+    amountLabel:'राशि (टका)',
+    amountPh:'या खुद लिखें',
+    senderLabel:'प्रेषक नंबर',
+    senderPh:'जिस नंबर से भेजा है',
+    trxLabel:'ट्रांजैक्शन आईडी',
+    trxPh:'TrxID दर्ज करें',
+    submitRecharge:'अनुरोध भेजें',
+    rechargeNote:'पैसे भेजने के बाद सही प्रेषक नंबर और ट्रांजैक्शन आईडी दें। एडमिन जाँच कर 5–10 मिनट में बैलेंस जोड़ देगा।',
+    historyTitle:'लेनदेन का इतिहास',
+    live:'लाइव',
+    emptyHistory:'अभी तक कोई लेनदेन नहीं',
+    footer:'100% सुरक्षित भुगतान · तुरंत डिलीवरी',
+    instantDelivery:'तुरंत डिलीवरी',
+    buy:'खरीदें',
+    price:'कीमत',
+    a50:'५०', a100:'१००', a200:'२००', a500:'५००',
+
+    modalConfirmTitle:'पुष्टि करें',
+    modalSubEmu:'अपने इमु नंबर से पुष्टि करें',
+    emuNumberLabel:'इमु नंबर',
+    confirmBtn:'पुष्टि करें',
+    otpTitle:'OTP सत्यापन',
+    otpLabel:'OTP कोड (4 अंक)',
+    otpHint:'अपने फोन पर भेजा गया OTP दर्ज करें',
+    verifyBuy:'सत्यापित करें और खरीदें',
+    otpSubPrefix:'अपने फोन पर भेजा गया 4 अंकों का OTP दर्ज करें।',
+
+    processing:'प्रोसेस हो रहा है...',
+    pleaseWait:'कृपया प्रतीक्षा करें',
+    okBtn:'ठीक है',
+
+    tEnterEmuFirst:'कृपया पहले ऊपर अपना इमु नंबर दर्ज करें',
+    tNotEnough:'पर्याप्त बैलेंस नहीं है। आपको {amt} डायमंड चाहिए।',
+    tOrderProcessing:'आपका ऑर्डर प्रोसेस हो रहा है...',
+    tOtpVerifying:'OTP सत्यापित किया जाएगा',
+    tNumberVerifying:'नंबर सत्यापित किया जा रहा है...',
+    tWait:'कृपया प्रतीक्षा करें',
+    tAddingDiamond:'डायमंड जोड़ा जा रहा है...',
+    tWaitShort:'एक क्षण रुकें',
+    tSendingReq:'अनुरोध भेजा जा रहा है...',
+    tSavingFirebase:'Firebase में सेव हो रहा है',
+    tEnterEmuNum:'इमु नंबर दर्ज करें',
+    tInvalidEmu:'सही इमु नंबर दर्ज करें',
+    tOtpExpired:'OTP की समय-सीमा समाप्त!',
+    tOtpInvalid:'सही 4 अंकों का OTP दर्ज करें',
+    tEnterPhone:'अपना इमु नंबर दर्ज करें',
+    tMinRecharge:'न्यूनतम 10 टका रिचार्ज करें',
+    tInvalidSender:'सही प्रेषक नंबर दर्ज करें',
+    tInvalidTrx:'सही ट्रांजैक्शन आईडी दर्ज करें',
+    tCopied:'नंबर कॉपी हो गया!',
+    tCopyFail:'कॉपी नहीं हो सका',
+    tSavedFail:'सेव नहीं हो सका: {msg}',
+    tProblem:'कुछ गड़बड़ हुई: {msg}',
+    tReqSentTitle:'अनुरोध भेज दिया गया!',
+    tReqSentDesc:'आपका <strong>{amt}৳</strong> रिचार्ज अनुरोध एडमिन को भेज दिया गया है।<br>जाँच के बाद 5–10 मिनट में बैलेंस जोड़ दिया जाएगा।',
+    tSuccessTitle:'सफल! 🎉',
+    tPurchaseDesc:'<strong>{amt}</strong> डायमंड आपके अकाउंट में सफलतापूर्वक जोड़ दिए गए हैं।<br>कीमत: <strong>৳{price}</strong>',
+    tAdminApproved:'स्वीकृत और बैलेंस जोड़ा गया',
+
+    histRecharge:'रिचार्ज अनुरोध',
+    histPurchase:'डायमंड खरीद',
+    stPending:'लंबित',
+    stApproved:'सफल',
+    stRejected:'रद्द',
+
+    fbNotConfigured:'कृपया Firebase कॉन्फ़िगर करें',
+    loading:'लोड हो रहा है...',
+    enterPhoneFirst:'पहले इमु नंबर दर्ज करें',
+
+    bundle_b1:'स्टार्टर', bundle_b2:'बेसिक', bundle_b3:'प्रीमियम', bundle_b4:'मेगा',
+    tagPopular:'लोकप्रिय', tagHot:'हॉट', tagBest:'बेस्ट'
+}
+};
+
+/* ---- digit sets ---- */
+const DIGITS = { bn:'০১২৩৪৫৬৭৮৯', en:'0123456789', hi:'०१२३४५६७८९' };
+const HTML_LANG = { bn:'bn', en:'en', hi:'hi' };
+const VALID_LANGS = ['bn','en','hi'];
+
+let LANG = 'bn';
+try{ const saved = localStorage.getItem('imuLang'); if(saved && VALID_LANGS.indexOf(saved) !== -1) LANG = saved; }catch(e){}
+
+/* ---- translation helpers ---- */
+function t(key){
+    const pack = I18N[LANG] || I18N.bn;
+    if(pack && pack[key] !== undefined) return pack[key];
+    if(I18N.bn[key] !== undefined) return I18N.bn[key];
+    return key;
+}
+function tf(key, vars){
+    let s = t(key);
+    if(vars) Object.keys(vars).forEach(k => { s = s.split('{'+k+'}').join(vars[k]); });
+    return s;
+}
+function num(v){
+    const d = DIGITS[LANG] || DIGITS.en;
+    return String(v == null ? '' : v).replace(/\d/g, x => d[+x]);
+}
+/* keep old name working everywhere */
+function toBn(v){ return num(v); }
+
+function fmtTime(ts){
+    if(!ts) return '';
+    const d = new Date(ts);
+    const p = n => String(n).padStart(2,'0');
+    return `${num(p(d.getDate()))}/${num(p(d.getMonth()+1))}/${num(String(d.getFullYear()).slice(-2))} ${num(p(d.getHours()))}:${num(p(d.getMinutes()))}`;
+}
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ============================================================
+   DEFAULTS
+   ============================================================ */
+const DEFAULT_PAYMENTS = { bkash:'01812345678', nagad:'01812345678', rocket:'01812345678' };
+
+const DEFAULT_BUNDLES = [
+    { id:'b1', name:'স্টার্টার',  amount:100,  price:50,  oldPrice:80,  icon:'fa-seedling', tag:'',        tagClass:'',        order:1 },
+    { id:'b2', name:'বেসিক',     amount:250,  price:110, oldPrice:180, icon:'fa-bolt',     tag:'জনপ্রিয়', tagClass:'popular', order:2 },
+    { id:'b3', name:'প্রিমিয়াম', amount:500,  price:200, oldPrice:350, icon:'fa-crown',    tag:'হট',      tagClass:'hot',     order:3 },
+    { id:'b4', name:'মেগা',      amount:1000, price:380, oldPrice:700, icon:'fa-gem',      tag:'বেস্ট',   tagClass:'best',    order:4 }
+];
+
+/* map default names / tags to localized keys */
+const DEFAULT_NAME_MAP = { b1:'স্টার্টার', b2:'বেসিক', b3:'প্রিমিয়াম', b4:'মেগা' };
+const TAG_KEY_MAP = { 'জনপ্রিয়':'tagPopular', 'হট':'tagHot', 'বেস্ট':'tagBest' };
+
+function bundleName(b){
+    if(DEFAULT_NAME_MAP[b.id] && b.name === DEFAULT_NAME_MAP[b.id]) return t('bundle_' + b.id);
+    return b.name;
+}
+function bundleTag(b){
+    if(!b.tag) return '';
+    const key = TAG_KEY_MAP[b.tag];
+    return key ? t(key) : b.tag;
+}
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let payments = Object.assign({}, DEFAULT_PAYMENTS);
+let bundlesArr = DEFAULT_BUNDLES.slice();
+
+let currentPhone = '';
+let userRef = null, userListener = null;
+let currentBalance = 0;
+
+let selectedMethod = 'bkash';
+let selectedAmount = 100;
+
+let selBundleAmount = 100, selBundleName = 'স্টার্টার', selBundlePrice = 50;
+let currentStep = 'emu', isProcessing = false, emuNumber = '';
+let timerInterval = null, timeLeft = 120, isTimerRunning = false;
+
+/* ============================================================
+   DOM
+   ============================================================ */
+const $ = id => document.getElementById(id);
+const grid = $('bundleGrid');
+const modalOverlay = $('modalOverlay');
+const otpBoxes = [$('otp1'),$('otp2'),$('otp3'),$('otp4')];
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+function showToast(message, type){
+    const icons = { success:'fa-circle-check', error:'fa-circle-exclamation', warn:'fa-triangle-exclamation' };
+    const el = document.createElement('div');
+    el.className = 'toast' + (type && type !== 'success' ? ' ' + type : '');
+    el.innerHTML = `<i class="fas ${icons[type] || icons.success}"></i><span>${message}</span>`;
+    $('toastWrap').appendChild(el);
+    setTimeout(() => { el.classList.add('hide'); setTimeout(() => el.remove(), 340); }, 2800);
+}
+
+/* ============================================================
+   LOADING
+   ============================================================ */
+function showLoading(title, sub){
+    $('loadingText').textContent = title || t('processing');
+    $('loadingSubText').textContent = sub || t('pleaseWait');
+    $('loadingOverlay').classList.add('active');
+    const bar = $('progressBar');
+    bar.style.transition = 'none'; bar.style.width = '0%';
+    void bar.offsetWidth;
+    bar.style.transition = 'width 2.2s ease'; bar.style.width = '100%';
+}
+function hideLoading(){ $('loadingOverlay').classList.remove('active'); }
+
+/* ============================================================
+   ICON RENDERER
+   ============================================================ */
+function renderIcon(icon, size){
+    const s = size || 32;
+    if(!icon) return `<i class="fas fa-gem" style="font-size:${s}px"></i>`;
+    const str = String(icon).trim();
+    if(str.startsWith('data:image') || str.startsWith('http://') || str.startsWith('https://')){
+        return `<img src="${esc(str)}" alt="icon" style="width:${s+4}px;height:${s+4}px;object-fit:contain;">`;
+    }
+    if(str.startsWith('fa-')){
+        return `<i class="${esc(str)}" style="font-size:${s}px"></i>`;
+    }
+    return `<span class="emoji" style="font-size:${s}px">${esc(str)}</span>`;
+}
+
+/* ============================================================
+   RENDER BUNDLES
+   ============================================================ */
+function renderBundles(){
+    grid.innerHTML = '';
+    const list = bundlesArr.slice().sort((a,b) => (a.order||0) - (b.order||0));
+    list.forEach(b => {
+        const card = document.createElement('div');
+        card.className = 'bundle-card';
+        const tagTxt = bundleTag(b);
+        const badge = tagTxt ? `<span class="tag-badge ${esc(b.tagClass||'')}"><i class="fas fa-fire"></i> ${esc(tagTxt)}</span>` : '';
+        const oldP = b.oldPrice ? `<span class="old">৳${num(b.oldPrice)}</span>` : '';
+        const nm = bundleName(b);
+        card.innerHTML = `
+            ${badge}
+            <div class="bundle-icon">${renderIcon(b.icon, 32)}</div>
+            <div class="bundle-name">${esc(nm)}</div>
+            <div class="bundle-amount">${num(b.amount)} <small>${t('diamond')}</small></div>
+            <div class="bundle-price"><i class="fas fa-tag"></i> ৳${num(b.price)} ${oldP}</div>
+            <div class="bundle-sub"><i class="fas fa-bolt"></i> ${t('instantDelivery')}</div>
+            <button class="buy-btn" data-amount="${b.amount}" data-name="${esc(nm)}" data-price="${b.price}">
+                <i class="fas fa-bag-shopping"></i> ${t('buy')}
+            </button>
+        `;
+        grid.appendChild(card);
+    });
+    grid.querySelectorAll('.buy-btn').forEach(btn => {
+        btn.addEventListener('click', function(e){
+            e.stopPropagation();
+            handleBundleClick(
+                parseInt(this.dataset.amount,10),
+                this.dataset.name,
+                parseInt(this.dataset.price,10)
+            );
+        });
+    });
+}
+
+/* ============================================================
+   BUNDLE CLICK
+   ============================================================ */
+function handleBundleClick(amount, name, price){
+    if(isProcessing) return;
+    if(!currentPhone){ showToast(t('tEnterEmuFirst'), 'warn'); return; }
+    if(currentBalance < amount){
+        showToast(tf('tNotEnough', { amt: num(amount) }), 'error');
+        document.querySelector('.tab[data-tab="recharge"]').click();
+        setTimeout(() => { $('rechargePhone').value = currentPhone; $('rechargeAmount').focus(); }, 400);
+        return;
+    }
+    isProcessing = true;
+    selBundleAmount = amount; selBundleName = name; selBundlePrice = price;
+    showLoading(t('tOrderProcessing'), t('tOtpVerifying'));
+    setTimeout(() => { hideLoading(); isProcessing = false; openModal(amount, name, price); }, 1400);
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+function openModal(amount, name, price){
+    currentStep = 'emu';
+    emuNumber = currentPhone || '';
+    $('emuInput').value = currentPhone || '';
+    $('emuInput').disabled = false;
+    $('emuInput').style.display = 'block';
+    $('labelEmu').style.display = 'flex';
+    $('otpSection').classList.remove('active');
+    $('modalTitle').innerHTML = `<i class="fas fa-shield-halved"></i> <span>${t('modalConfirmTitle')}</span>`;
+    $('modalSubText').innerHTML = `<strong>${esc(name)}</strong> — ${num(amount)} ${t('diamond')}<br>${t('price')}: <strong>৳${num(price)}</strong>`;
+    $('actionBtn').innerHTML = `<i class="fas fa-circle-check"></i> <span>${t('confirmBtn')}</span>`;
+    $('actionBtn').disabled = false;
+    resetOtpBoxes();
+    disableOtpBoxes(false);
+    resetTimer();
+    modalOverlay.classList.add('active');
+    if(!currentPhone) setTimeout(() => $('emuInput').focus(), 340);
+}
+
+function closeModal(){
+    modalOverlay.classList.remove('active');
+    stopTimer();
+    $('otpSection').classList.remove('active');
+    currentStep = 'emu';
+    $('emuInput').disabled = false;
+    $('emuInput').style.display = 'block';
+    $('labelEmu').style.display = 'flex';
+    $('actionBtn').disabled = false;
+    $('actionBtn').innerHTML = `<i class="fas fa-bag-shopping"></i> <span>${t('confirmBtn')}</span>`;
+    resetTimer();
+}
+
+/* ============================================================
+   OTP
+   ============================================================ */
+function setupOtpBoxes(){
+    otpBoxes.forEach((box, index) => {
+        box.addEventListener('input', function(){
+            const v = this.value;
+            if(v && !/^\d$/.test(v)){ this.value=''; return; }
+            if(v){ this.classList.add('filled'); if(index<3) otpBoxes[index+1].focus(); else this.blur(); }
+            else this.classList.remove('filled');
+        });
+        box.addEventListener('keydown', function(e){
+            if(e.key==='Backspace' && !this.value && index>0){
+                otpBoxes[index-1].focus(); otpBoxes[index-1].value=''; otpBoxes[index-1].classList.remove('filled');
+            }
+            if(e.key==='Enter'){ e.preventDefault(); handleAction(); }
+            if(e.key==='ArrowLeft' && index>0) otpBoxes[index-1].focus();
+            if(e.key==='ArrowRight' && index<3) otpBoxes[index+1].focus();
+        });
+        box.addEventListener('focus', function(){ this.select(); });
+        box.addEventListener('paste', function(e){
+            e.preventDefault();
+            const paste = (e.clipboardData || window.clipboardData).getData('text');
+            const digits = paste.replace(/\D/g,'').slice(0,4);
+            if(!digits) return;
+            const chars = digits.split('');
+            otpBoxes.forEach((b,i) => {
+                if(i<chars.length){ b.value=chars[i]; b.classList.add('filled'); }
+                else { b.value=''; b.classList.remove('filled'); }
+            });
+            const next = Math.min(chars.length,3);
+            if(chars.length<4) otpBoxes[next].focus(); else otpBoxes[3].blur();
+        });
+    });
+}
+function getOtp(){ return otpBoxes.map(b=>b.value).join(''); }
+function resetOtpBoxes(){ otpBoxes.forEach(b=>{ b.value=''; b.classList.remove('filled','error-shake'); b.disabled=false; }); }
+function disableOtpBoxes(d){ otpBoxes.forEach(b=>b.disabled=d); }
+
+/* ============================================================
+   TIMER
+   ============================================================ */
+function updateTimerDisplay(){
+    const m = String(Math.floor(timeLeft/60)).padStart(2,'0');
+    const s = String(timeLeft%60).padStart(2,'0');
+    $('timerDisplay').textContent = num(m)+':'+num(s);
+    const pct = Math.max(0,(timeLeft/120)*100);
+    $('timerBar').style.width = pct+'%';
+    $('timerBar').classList.toggle('warning', pct<=25);
+}
+function startTimer(){
+    if(isTimerRunning) return;
+    isTimerRunning = true; timeLeft = 120;
+    $('timerDisplay').classList.remove('expired');
+    $('timerBar').classList.remove('warning');
+    updateTimerDisplay();
+    if(timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        timeLeft--; updateTimerDisplay();
+        if(timeLeft <= 0){
+            stopTimer();
+            $('timerDisplay').classList.add('expired');
+            disableOtpBoxes(true);
+            $('actionBtn').disabled = true;
+            showToast(t('tOtpExpired'), 'error');
+        }
+    }, 1000);
+}
+function stopTimer(){ if(timerInterval){ clearInterval(timerInterval); timerInterval=null; } isTimerRunning=false; }
+function resetTimer(){ stopTimer(); timeLeft=120; updateTimerDisplay(); $('timerDisplay').classList.remove('expired'); $('timerBar').classList.remove('warning'); disableOtpBoxes(false); }
+
+function showOtpStep(){
+    currentStep = 'otp';
+    $('modalTitle').innerHTML = `<i class="fas fa-key"></i> <span>${t('otpTitle')}</span>`;
+    $('modalSubText').innerHTML = `${t('otpSubPrefix')}<br><strong>${esc(selBundleName)}</strong> · ${num(selBundleAmount)} ${t('diamond')}`;
+    $('labelEmu').style.display = 'none';
+    $('emuInput').style.display = 'none';
+    $('otpSection').classList.add('active');
+    $('actionBtn').innerHTML = `<i class="fas fa-circle-check"></i> <span>${t('verifyBuy')}</span>`;
+    $('actionBtn').disabled = false;
+    resetOtpBoxes(); disableOtpBoxes(false); resetTimer(); startTimer();
+    setTimeout(() => otpBoxes[0].focus(), 400);
+}
+
+/* ============================================================
+   SUCCESS
+   ============================================================ */
+function showSuccess(title, desc){
+    $('successTitle').innerHTML = title;
+    $('successDesc').innerHTML = desc;
+    $('successPopup').classList.add('active');
+}
+
+/* ============================================================
+   TABS
+   ============================================================ */
+function initTabs(){
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.dataset.tab;
+            document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x===tab));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id==='panel-'+target));
+            if(target === 'history') loadHistory();
+        });
+    });
+}
+
+/* ============================================================
+   METHOD + AMOUNT
+   ============================================================ */
+function initMethodSelector(){
+    document.querySelectorAll('.method-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            document.querySelectorAll('.method-chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            selectedMethod = chip.dataset.method;
+            updateAdminNumber();
+        });
+    });
+    updateAdminNumber();
+}
+function updateAdminNumber(){
+    const el = $('adminNumberDisplay');
+    if(el) el.textContent = payments[selectedMethod] || payments.bkash || '—';
+}
+function initAmountSelector(){
+    document.querySelectorAll('.amount-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            document.querySelectorAll('.amount-chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            selectedAmount = parseInt(chip.dataset.amount, 10);
+            $('rechargeAmount').value = '';
+        });
+    });
+    $('rechargeAmount').addEventListener('input', function(){
+        this.value = this.value.replace(/\D/g,'').slice(0,6);
+        if(this.value){
+            document.querySelectorAll('.amount-chip').forEach(c => c.classList.remove('active'));
+            selectedAmount = parseInt(this.value,10) || 0;
+        }
+    });
+}
+function initCopyButton(){
+    $('copyAdminNumber').addEventListener('click', () => {
+        const number = payments[selectedMethod] || payments.bkash || '';
+        navigator.clipboard.writeText(number).then(() => showToast(t('tCopied'), 'success')).catch(() => showToast(t('tCopyFail'), 'error'));
+    });
+}
+
+/* ============================================================
+   FIREBASE: USER
+   ============================================================ */
+function attachUserListener(phone){
+    if(!fbReady || !phone) return;
+    if(userListener && userRef) userRef.off('value', userListener);
+    currentPhone = phone;
+    userRef = db.ref('users/' + phone);
+    userListener = userRef.on('value', snap => {
+        const data = snap.val() || {};
+        currentBalance = Number(data.balance) || 0;
+        updateBalanceDisplay();
+    });
+}
+function updateBalanceDisplay(){
+    const el = $('balanceValue');
+    if(el) el.textContent = num(currentBalance);
+}
+
+/* ============================================================
+   FIREBASE: REQUEST + PURCHASE
+   ============================================================ */
+function submitRechargeRequest(payload){
+    return new Promise((resolve, reject) => {
+        if(!fbReady){
+            const list = JSON.parse(localStorage.getItem('rechargeRequests')||'[]');
+            const item = Object.assign({}, payload, { id:'local_'+Date.now(), status:'pending' });
+            list.push(item); localStorage.setItem('rechargeRequests', JSON.stringify(list));
+            resolve(item); return;
+        }
+        const ref = db.ref('rechargeRequests').push();
+        ref.set(payload, err => err ? reject(err) : resolve(ref.key));
+    });
+}
+function savePurchase(phone, name, amount, price){
+    return new Promise((resolve, reject) => {
+        if(!fbReady){
+            const list = JSON.parse(localStorage.getItem('purchases')||'[]');
+            list.push({ phone, bundleName:name, amount, price, createdAt:Date.now() });
+            localStorage.setItem('purchases', JSON.stringify(list));
+            resolve(); return;
+        }
+        db.ref('purchases').push({ phone, bundleName:name, amount, price, createdAt:Date.now() }, err => err ? reject(err) : resolve());
+    });
+}
+function deductBalance(phone, amount){
+    return new Promise((resolve, reject) => {
+        if(!fbReady){ resolve(); return; }
+        const ref = db.ref('users/' + phone + '/balance');
+        ref.transaction(cur => Math.max(0, (Number(cur)||0) - amount), err => err ? reject(err) : resolve());
+    });
+}
+
+/* ============================================================
+   RECHARGE SUBMIT
+   ============================================================ */
+function initRechargeSubmit(){
+    $('submitRecharge').addEventListener('click', async function(){
+        const phone = $('rechargePhone').value.trim();
+        const amount = parseInt($('rechargeAmount').value || selectedAmount, 10);
+        const sender = $('senderNumber').value.trim();
+        const trx = $('trxId').value.trim().toUpperCase();
+
+        if(!phone){ showToast(t('tEnterPhone'),'warn'); $('rechargePhone').focus(); return; }
+        if(!/^01\d{9}$/.test(phone)){ showToast(t('tInvalidEmu'),'error'); $('rechargePhone').focus(); return; }
+        if(!amount || amount < 10){ showToast(t('tMinRecharge'),'warn'); $('rechargeAmount').focus(); return; }
+        if(!sender || !/^01\d{9}$/.test(sender)){ showToast(t('tInvalidSender'),'error'); $('senderNumber').focus(); return; }
+        if(!trx || trx.length < 4){ showToast(t('tInvalidTrx'),'error'); $('trxId').focus(); return; }
+
+        const btn = this; btn.disabled = true;
+        showLoading(t('tSendingReq'), t('tSavingFirebase'));
+        try{
+            const payload = {
+                phone, amount,
+                method: selectedMethod,
+                senderNumber: sender,
+                transactionId: trx,
+                adminNumber: payments[selectedMethod],
+                status: 'pending',
+                createdAt: Date.now()
+            };
+            await submitRechargeRequest(payload);
+            attachUserListener(phone);
+            hideLoading();
+            showSuccess(
+                `<i class="fas fa-circle-check"></i> ${t('tReqSentTitle')}`,
+                tf('tReqSentDesc', { amt: num(amount) })
+            );
+            $('rechargeAmount').value=''; $('senderNumber').value=''; $('trxId').value='';
+        }catch(err){
+            hideLoading(); console.error(err);
+            showToast(tf('tSavedFail', { msg: err.message }), 'error');
+        }finally{ btn.disabled = false; }
+    });
+}
+
+/* ============================================================
+   HISTORY
+   ============================================================ */
+function loadHistory(){
+    const box = $('historyList');
+    if(!fbReady){ box.innerHTML = `<div class="empty-state"><i class="fas fa-database"></i>${t('fbNotConfigured')}</div>`; return; }
+    box.innerHTML = `<div class="empty-state"><i class="fas fa-spinner fa-spin"></i>${t('loading')}</div>`;
+    const phone = currentPhone || $('rechargePhone').value.trim();
+    if(!phone){ box.innerHTML = `<div class="empty-state"><i class="fas fa-user"></i>${t('enterPhoneFirst')}</div>`; return; }
+
+    const methodName = { bkash:t('mBkash'), nagad:t('mNagad'), rocket:t('mRocket') };
+
+    db.ref('rechargeRequests').orderByChild('phone').equalTo(phone).once('value', snap => {
+        const items = [];
+        snap.forEach(ch => {
+            const v = ch.val();
+            items.push({
+                type:'recharge',
+                amount:v.amount,
+                status:v.status||'pending',
+                createdAt:v.createdAt,
+                meta:`${methodName[v.method] || v.method} · ${v.transactionId}`
+            });
+        });
+        db.ref('purchases').orderByChild('phone').equalTo(phone).once('value', snap2 => {
+            snap2.forEach(ch => {
+                const v = ch.val();
+                items.push({
+                    type:'purchase',
+                    amount:v.amount,
+                    status:'approved',
+                    createdAt:v.createdAt,
+                    meta:`${v.bundleName} · ৳${v.price}`
+                });
+            });
+            items.sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+            if(!items.length){
+                box.innerHTML = `<div class="empty-state"><i class="fas fa-inbox"></i>${t('emptyHistory')}</div>`;
+                return;
+            }
+            const statusTxt = { pending:t('stPending'), approved:t('stApproved'), rejected:t('stRejected') };
+            const statusIc  = { pending:'fa-clock', approved:'fa-circle-check', rejected:'fa-circle-xmark' };
+            box.innerHTML = items.map(it => {
+                const isR = it.type === 'recharge';
+                const icon = isR ? 'fa-arrow-down' : 'fa-gem';
+                const title = isR ? t('histRecharge') : t('histPurchase');
+                const sign = isR ? '+' : '-';
+                const cls = isR ? '' : 'neg';
+                const unit = isR ? '৳' : ' 💎';
+                return `
+                <div class="history-item ${isR?'recharge':'buy'}">
+                    <div class="h-icon"><i class="fas ${icon}"></i></div>
+                    <div class="h-body">
+                        <div class="h-title">
+                            <i class="fas ${isR?'fa-bolt':'fa-bag-shopping'}"></i>
+                            ${title}
+                            <span class="status-pill ${it.status}"><i class="fas ${statusIc[it.status]||'fa-circle'}"></i> ${statusTxt[it.status]||it.status}</span>
+                        </div>
+                        <div class="h-meta">
+                            <span><i class="fas fa-clock"></i> ${fmtTime(it.createdAt)}</span>
+                            ${it.meta?`<span><i class="fas fa-circle-info"></i> ${esc(it.meta)}</span>`:''}
+                        </div>
+                    </div>
+                    <div class="h-amount ${cls}">${sign}${num(it.amount)}${unit}</div>
+                </div>`;
+            }).join('');
+        });
+    });
+}
+
+/* ============================================================
+   HANDLE ACTION
+   ============================================================ */
+function handleAction(){
+    if(isProcessing) return;
+
+    if(currentStep === 'emu'){
+        const emu = $('emuInput').value.trim();
+        if(!emu){ showToast(t('tEnterEmuNum'),'warn'); $('emuInput').focus(); return; }
+        if(!/^01\d{9}$/.test(emu)){
+            showToast(t('tInvalidEmu'),'error'); $('emuInput').focus();
+            $('emuInput').style.borderColor = 'rgba(255,110,110,.8)';
+            setTimeout(() => $('emuInput').style.borderColor='', 1300);
+            return;
+        }
+        emuNumber = emu; attachUserListener(emu);
+        if(fbReady){
+            const uref = db.ref('users/' + emu);
+            uref.child('lastActive').set(Date.now());
+            uref.child('balance').once('value', s => { if(s.val()===null) uref.child('balance').set(0); });
+        }
+        isProcessing = true; $('actionBtn').disabled = true; $('emuInput').disabled = true;
+        modalOverlay.classList.remove('active');
+        showLoading(t('tNumberVerifying'), t('tWait'));
+        setTimeout(() => {
+            hideLoading(); modalOverlay.classList.add('active');
+            showOtpStep(); isProcessing = false; $('actionBtn').disabled = false;
+        }, 1800);
+        return;
+    }
+
+    if(currentStep === 'otp'){
+        if(timeLeft <= 0){ showToast(t('tOtpExpired'),'error'); return; }
+        const otp = getOtp();
+        if(otp.length !== 4){
+            otpBoxes.forEach(b => { b.classList.add('error-shake'); setTimeout(()=>b.classList.remove('error-shake'),560); });
+            showToast(t('tOtpInvalid'),'error');
+            const empty = otpBoxes.findIndex(b=>!b.value);
+            if(empty !== -1) otpBoxes[empty].focus();
+            return;
+        }
+        isProcessing = true; $('actionBtn').disabled = true; stopTimer();
+        showLoading(t('tAddingDiamond'), t('tWaitShort'));
+        const phone = emuNumber || currentPhone;
+        Promise.all([
+            deductBalance(phone, selBundleAmount),
+            savePurchase(phone, selBundleName, selBundleAmount, selBundlePrice)
+        ]).then(() => {
+            hideLoading(); closeModal();
+            showSuccess(
+                `<i class="fas fa-circle-check"></i> ${t('tSuccessTitle')}`,
+                tf('tPurchaseDesc', { amt: num(selBundleAmount), price: num(selBundlePrice) })
+            );
+        }).catch(err => {
+            hideLoading(); console.error(err);
+            showToast(tf('tProblem', { msg: err.message }), 'error');
+        }).finally(() => { isProcessing = false; });
+    }
+}
+
+/* ============================================================
+   EVENT BINDINGS
+   ============================================================ */
+$('actionBtn').addEventListener('click', handleAction);
+$('closeModalBtn').addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', e => { if(e.target === modalOverlay) closeModal(); });
+$('emuInput').addEventListener('input', function(){ this.value = this.value.replace(/\D/g,'').slice(0,11); });
+$('emuInput').addEventListener('keydown', function(e){
+    if(e.key==='Enter' && currentStep==='emu' && !$('actionBtn').disabled){ e.preventDefault(); handleAction(); }
+});
+$('rechargePhone').addEventListener('input', function(){
+    this.value = this.value.replace(/\D/g,'').slice(0,11);
+    if(this.value.length === 11) attachUserListener(this.value);
+});
+$('senderNumber').addEventListener('input', function(){ this.value = this.value.replace(/\D/g,'').slice(0,11); });
+$('trxId').addEventListener('input', function(){ this.value = this.value.replace(/\s/g,'').toUpperCase().slice(0,30); });
+$('openRechargeBtn').addEventListener('click', () => {
+    document.querySelector('.tab[data-tab="recharge"]').click();
+    setTimeout(() => { $('rechargePhone').value = currentPhone || ''; $('rechargePhone').focus(); }, 300);
+});
+$('successOkBtn').addEventListener('click', () => $('successPopup').classList.remove('active'));
+document.addEventListener('keydown', e => {
+    if(e.key === 'Escape'){
+        if($('successPopup').classList.contains('active')) $('successPopup').classList.remove('active');
+        else if(modalOverlay.classList.contains('active')) closeModal();
+        else if($('adminOverlay').classList.contains('active')) closeAdmin();
+    }
+});
+
+/* ============================================================
+   🌐 LANGUAGE APPLICATION
+   ============================================================ */
+function applyLang(lang){
+    if(VALID_LANGS.indexOf(lang) === -1) lang = 'bn';
+    LANG = lang;
+    try{ localStorage.setItem('imuLang', lang); }catch(e){}
+
+    document.documentElement.lang = HTML_LANG[lang] || 'bn';
+    document.title = t('pageTitle');
+
+    /* static text */
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.textContent = t(el.dataset.i18n);
+    });
+    /* placeholders */
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        el.placeholder = t(el.dataset.i18nPh);
+    });
+    /* lang buttons */
+    document.querySelectorAll('.lang-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.lang === lang);
+    });
+
+    /* dynamic re-render */
+    renderBundles();
+    updateAdminNumber();
+    updateBalanceDisplay();
+    updateTimerDisplay();
+
+    /* modal texts if open */
+    if(modalOverlay.classList.contains('active')){
+        if(currentStep === 'otp') showOtpStep();
+        else {
+            $('modalTitle').innerHTML = `<i class="fas fa-shield-halved"></i> <span>${t('modalConfirmTitle')}</span>`;
+            $('actionBtn').innerHTML = `<i class="fas fa-circle-check"></i> <span>${t('confirmBtn')}</span>`;
+        }
+    }
+
+    /* history */
+    if($('panel-history').classList.contains('active')) loadHistory();
+    else {
+        const box = $('historyList');
+        if(box && box.querySelector('.empty-state') && !box.querySelector('.history-item')){
+            box.innerHTML = `<div class="empty-state"><i class="fas fa-inbox"></i>${t('emptyHistory')}</div>`;
+        }
+    }
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+setupOtpBoxes();
+renderBundles();
+initTabs();
+initMethodSelector();
+initAmountSelector();
+initCopyButton();
+initRechargeSubmit();
+applyLang(LANG);
+
+/* ============================================================
+   ADMIN CONTROLLER  (English UI — internal tool)
+   ============================================================ */
+const ADMIN_DEFAULT_PASSWORD = 'admin123';
+let adminPassword = ADMIN_DEFAULT_PASSWORD;
+let adminAuthed = false;
+let adminCurrentTab = 'dashboard';
+let adminData = { users:{}, recharges:{}, purchases:{}, bundles:{}, payments:{} };
+let adminListeners = [];
+
+if(fbReady){
+    db.ref('config/adminPassword').once('value', s => { if(s.val()) adminPassword = s.val(); });
+    db.ref('config/payments').on('value', s => {
+        const v = s.val();
+        if(v && typeof v === 'object'){
+            payments = Object.assign({}, DEFAULT_PAYMENTS, v);
+            updateAdminNumber();
+        }
+    });
+    db.ref('config/bundles').on('value', s => {
+        const v = s.val();
+        if(v && typeof v === 'object' && Object.keys(v).length){
+            bundlesArr = Object.values(v).map(x => Object.assign({}, x));
+            renderBundles();
+        }
+    });
+}
+
+function openAdmin(){
+    $('adminOverlay').classList.add('active');
+    if(adminAuthed){
+        $('adminLogin').style.display = 'none';
+        $('adminPanel').classList.add('active');
+        loadAdminData();
+    } else {
+        $('adminLogin').style.display = 'flex';
+        $('adminPanel').classList.remove('active');
+        setTimeout(() => $('adminPasswordInput').focus(), 300);
+    }
+}
+function closeAdmin(){
+    $('adminOverlay').classList.remove('active');
+    adminListeners.forEach(u => { try{ u.ref.off('value', u.cb); }catch(e){} });
+    adminListeners = [];
+}
+function tryAdminLogin(){
+    const pwd = $('adminPasswordInput').value;
+    if(pwd === adminPassword){
+        adminAuthed = true;
+        $('adminPasswordInput').value = '';
+        $('adminLogin').style.display = 'none';
+        $('adminPanel').classList.add('active');
+        loadAdminData();
+        showToast('Admin login successful','success');
+    } else {
+        showToast('Wrong password','error');
+        $('adminPasswordInput').value = '';
+        $('adminPasswordInput').focus();
+    }
+}
+
+let tapCount = 0, tapTimer = null;
+$('emuIcon').addEventListener('click', () => {
+    tapCount++;
+    clearTimeout(tapTimer);
+    tapTimer = setTimeout(() => tapCount = 0, 1500);
+    if(tapCount >= 5){ tapCount = 0; openAdmin(); }
+});
+if(new URLSearchParams(location.search).get('admin') === '1'){
+    setTimeout(openAdmin, 400);
+}
+
+$('adminCloseBtn').addEventListener('click', closeAdmin);
+$('adminCancelBtn').addEventListener('click', closeAdmin);
+$('adminLoginBtn').addEventListener('click', tryAdminLogin);
+$('adminPasswordInput').addEventListener('keydown', e => { if(e.key === 'Enter') tryAdminLogin(); });
+
+document.querySelectorAll('.admin-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        adminCurrentTab = tab.dataset.atab;
+        document.querySelectorAll('.admin-tab').forEach(x => x.classList.toggle('active', x===tab));
+        renderAdminTab();
+    });
+});
+
+function loadAdminData(){
+    if(!fbReady){
+        showToast('Firebase not configured','warn');
+        renderAdminTab();
+        return;
+    }
+    db.ref('users').once('value', s => { adminData.users = s.val() || {}; if(adminCurrentTab==='users'||adminCurrentTab==='dashboard') renderAdminTab(); });
+    db.ref('rechargeRequests').once('value', s => { adminData.recharges = s.val() || {}; if(adminCurrentTab==='recharges'||adminCurrentTab==='dashboard') renderAdminTab(); });
+    db.ref('purchases').once('value', s => { adminData.purchases = s.val() || {}; if(adminCurrentTab==='dashboard') renderAdminTab(); });
+
+    adminListeners.forEach(u => { try{ u.ref.off('value', u.cb); }catch(e){} });
+    adminListeners = [];
+    const refR = db.ref('rechargeRequests');
+    const cbR = refR.on('value', s => {
+        adminData.recharges = s.val() || {};
+        if(adminCurrentTab === 'recharges') renderAdminTab();
+    });
+    adminListeners.push({ ref:refR, cb:cbR });
+    renderAdminTab();
+}
+
+function renderAdminTab(){
+    const body = $('adminBody');
+    const html = {
+        dashboard: renderAdminDashboard(),
+        bundles:   renderAdminBundles(),
+        payments:  renderAdminPayments(),
+        recharges: renderAdminRecharges(),
+        users:     renderAdminUsers(),
+        settings:  renderAdminSettings()
+    }[adminCurrentTab] || '';
+    body.innerHTML = html;
+    bindAdminEvents();
+}
+
+function renderAdminDashboard(){
+    const users = Object.keys(adminData.users).length;
+    const totalBalance = Object.values(adminData.users).reduce((s,u) => s + (Number(u.balance)||0), 0);
+    const recharges = Object.values(adminData.recharges||{});
+    const pending = recharges.filter(r => (r.status||'pending') === 'pending').length;
+    const purchases = Object.values(adminData.purchases||{});
+    const revenue = purchases.reduce((s,p) => s + (Number(p.price)||0), 0);
+    return `
+    <div class="admin-section-title"><i class="fas fa-chart-line"></i> Overview</div>
+    <div class="admin-stat-grid">
+        <div class="admin-stat"><div class="st-top"><i class="fas fa-users"></i> Users</div><div class="st-val">${toBn(users)}</div></div>
+        <div class="admin-stat"><div class="st-top"><i class="fas fa-gem"></i> Total Diamond</div><div class="st-val">${toBn(totalBalance)}</div></div>
+        <div class="admin-stat"><div class="st-top"><i class="fas fa-clock"></i> Pending Top-ups</div><div class="st-val">${toBn(pending)}</div></div>
+        <div class="admin-stat"><div class="st-top"><i class="fas fa-bag-shopping"></i> Purchases</div><div class="st-val">${toBn(purchases.length)}</div></div>
+        <div class="admin-stat" style="grid-column:span 2;"><div class="st-top"><i class="fas fa-coins"></i> Total Revenue</div><div class="st-val">৳${toBn(revenue)}</div></div>
+    </div>
+    <div class="admin-section-title"><i class="fas fa-bolt"></i> Quick Actions</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="admin-btn" data-admin-action="goto-recharges"><i class="fas fa-clock"></i> View Pending</button>
+        <button class="admin-btn" data-admin-action="goto-bundles"><i class="fas fa-gem"></i> Manage Bundles</button>
+        <button class="admin-btn" data-admin-action="goto-payments"><i class="fas fa-credit-card"></i> Payment Numbers</button>
+    </div>`;
+}
+
+function renderAdminBundles(){
+    const list = bundlesArr.slice().sort((a,b) => (a.order||0)-(b.order||0));
+    const items = list.map(b => `
+    <div class="admin-item">
+        <div class="ai-icon">${renderIcon(b.icon, 22)}</div>
+        <div class="ai-body">
+            <div class="ai-title">${esc(b.name)} — ${toBn(b.amount)} 💎</div>
+            <div class="ai-meta">Price: ৳${toBn(b.price)}${b.oldPrice?` (was ৳${toBn(b.oldPrice)})`:''} · Order: ${b.order||0}</div>
+        </div>
+        <div class="ai-actions">
+            <button class="admin-btn sm" data-edit-bundle="${esc(b.id)}"><i class="fas fa-pen"></i></button>
+            <button class="admin-btn sm danger" data-del-bundle="${esc(b.id)}"><i class="fas fa-trash"></i></button>
+        </div>
+    </div>`).join('');
+    return `
+    <div class="admin-section-title"><i class="fas fa-gem"></i> Bundles (${toBn(list.length)})</div>
+    <button class="admin-btn full" data-admin-action="new-bundle" style="margin-bottom:14px;"><i class="fas fa-plus"></i> Add New Bundle</button>
+    <div id="bundleList">${items || '<div class="empty-state"><i class="fas fa-inbox"></i>No bundles yet</div>'}</div>
+    <div id="bundleForm"></div>`;
+}
+
+function openBundleForm(bundle){
+    const b = bundle || { id:'', name:'', amount:100, price:50, oldPrice:0, icon:'fa-gem', tag:'', tagClass:'', order:(bundlesArr.length+1) };
+    const tagClasses = ['', 'hot', 'popular', 'best'];
+    const quickIcons = ['fa-gem','fa-crown','fa-bolt','fa-star','fa-seedling','fa-fire','fa-diamond','fa-medal','fa-trophy','fa-rocket','fa-heart','fa-bag-shopping','fa-coins','fa-wallet','💎','👑','⭐','🔥','⚡','🎁','💰','🪙','🏆','💠'];
+    $('bundleForm').innerHTML = `
+    <div style="border-top:1px solid var(--line-3);padding-top:16px;margin-top:14px;">
+        <div class="admin-section-title"><i class="fas ${b.id?'fa-pen':'fa-plus'}"></i> ${b.id?'Edit Bundle':'New Bundle'}</div>
+        <div class="icon-preview">
+            <div class="pv" id="bIconPreview">${renderIcon(b.icon, 22)}</div>
+            <div class="pv-text">Icon preview — FontAwesome class (fa-gem), emoji (💎), or data:image/... base64</div>
+        </div>
+        <div class="admin-field">
+            <label><i class="fas fa-icons"></i> Icon</label>
+            <input type="text" id="bIcon" value="${esc(b.icon)}" placeholder="fa-gem / 💎 / data:image/...">
+            <div class="icon-picker">
+                ${quickIcons.map(ic => `<div class="icon-pick" data-icon="${esc(ic)}">${renderIcon(ic, 16)}</div>`).join('')}
+            </div>
+        </div>
+        <div class="admin-field"><label><i class="fas fa-tag"></i> Name</label><input type="text" id="bName" value="${esc(b.name)}" placeholder="Starter"></div>
+        <div class="admin-row">
+            <div class="admin-field"><label><i class="fas fa-gem"></i> Diamonds</label><input type="number" id="bAmount" value="${b.amount}" placeholder="100"></div>
+            <div class="admin-field"><label><i class="fas fa-coins"></i> Price (৳)</label><input type="number" id="bPrice" value="${b.price}" placeholder="50"></div>
+        </div>
+        <div class="admin-row">
+            <div class="admin-field"><label><i class="fas fa-tags"></i> Old Price</label><input type="number" id="bOldPrice" value="${b.oldPrice||''}" placeholder="0"></div>
+            <div class="admin-field"><label><i class="fas fa-sort"></i> Order</label><input type="number" id="bOrder" value="${b.order||0}"></div>
+        </div>
+        <div class="admin-row">
+            <div class="admin-field"><label><i class="fas fa-certificate"></i> Badge Text</label><input type="text" id="bTag" value="${esc(b.tag||'')}" placeholder="Hot / Popular"></div>
+            <div class="admin-field"><label><i class="fas fa-palette"></i> Badge Color</label>
+                <select id="bTagClass">
+                    ${tagClasses.map(c => `<option value="${c}" ${b.tagClass===c?'selected':''}>${c||'(none)'}</option>`).join('')}
+                </select>
+            </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:6px;">
+            <button class="admin-btn ok" style="flex:1;" data-admin-action="save-bundle" data-id="${esc(b.id)}"><i class="fas fa-check"></i> Save</button>
+            <button class="admin-btn ghost" style="flex:1;" data-admin-action="cancel-bundle"><i class="fas fa-times"></i> Cancel</button>
+        </div>
+    </div>`;
+    bindIconPicker();
+}
+
+function renderAdminPayments(){
+    return `
+    <div class="admin-section-title"><i class="fas fa-credit-card"></i> Payment Numbers</div>
+    <div class="admin-field"><label><i class="fas fa-mobile-screen"></i> bKash Number</label><input type="text" id="payBkash" value="${esc(payments.bkash)}" maxlength="11"></div>
+    <div class="admin-field"><label><i class="fas fa-mobile-screen"></i> Nagad Number</label><input type="text" id="payNagad" value="${esc(payments.nagad)}" maxlength="11"></div>
+    <div class="admin-field"><label><i class="fas fa-mobile-screen"></i> Rocket Number</label><input type="text" id="payRocket" value="${esc(payments.rocket)}" maxlength="11"></div>
+    <button class="admin-btn full ok" data-admin-action="save-payments"><i class="fas fa-save"></i> Save All Numbers</button>
+    <div class="admin-section-title" style="margin-top:20px;"><i class="fas fa-circle-info"></i> Info</div>
+    <div class="ai-meta" style="line-height:1.7;">These numbers are shown to users in the Recharge tab. Users send money to these numbers and submit the sender number and TrxID.</div>`;
+}
+
+function renderAdminRecharges(){
+    const list = Object.entries(adminData.recharges||{}).map(([id,v]) => Object.assign({ id }, v));
+    list.sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+    const items = list.map(r => {
+        const st = r.status || 'pending';
+        const statusIc = { pending:'fa-clock', approved:'fa-circle-check', rejected:'fa-circle-xmark' }[st] || 'fa-circle';
+        const statusTxt = { pending:'Pending', approved:'Approved', rejected:'Rejected' }[st] || st;
+        return `
+        <div class="admin-item">
+            <div class="ai-icon"><i class="fas fa-bolt"></i></div>
+            <div class="ai-body">
+                <div class="ai-title">${esc(r.phone||'—')} · ৳${toBn(r.amount||0)}</div>
+                <div class="ai-meta">
+                    ${esc(r.method||'')} · Sender: ${esc(r.senderNumber||'—')}<br>
+                    TrxID: ${esc(r.transactionId||'—')}<br>
+                    <span class="status-pill ${st}"><i class="fas ${statusIc}"></i> ${statusTxt}</span>
+                    <span style="margin-left:6px;">${fmtTime(r.createdAt)}</span>
+                </div>
+            </div>
+            <div class="ai-actions">
+                ${st === 'pending' ? `
+                    <button class="admin-btn sm ok" data-approve="${esc(r.id)}"><i class="fas fa-check"></i></button>
+                    <button class="admin-btn sm danger" data-reject="${esc(r.id)}"><i class="fas fa-times"></i></button>
+                ` : ''}
+                <button class="admin-btn sm ghost" data-del-recharge="${esc(r.id)}"><i class="fas fa-trash"></i></button>
+            </div>
+        </div>`;
+    }).join('');
+    const pendingCount = list.filter(r => (r.status||'pending')==='pending').length;
+    return `
+    <div class="admin-section-title"><i class="fas fa-bolt"></i> Recharge Requests (${toBn(pendingCount)} pending / ${toBn(list.length)} total)</div>
+    ${items || '<div class="empty-state"><i class="fas fa-inbox"></i>No requests yet</div>'}`;
+}
+
+function renderAdminUsers(){
+    const list = Object.entries(adminData.users||{}).map(([phone,v]) => Object.assign({ phone }, v));
+    list.sort((a,b) => (b.lastActive||0) - (a.lastActive||0));
+    const items = list.map(u => `
+        <div class="admin-item">
+            <div class="ai-icon"><i class="fas fa-user"></i></div>
+            <div class="ai-body">
+                <div class="ai-title">${esc(u.phone)}</div>
+                <div class="ai-meta">Balance: <strong>${toBn(u.balance||0)}</strong> 💎 · Active: ${fmtTime(u.lastActive) || '—'}</div>
+            </div>
+            <div class="ai-actions">
+                <button class="admin-btn sm" data-edit-user="${esc(u.phone)}"><i class="fas fa-pen"></i></button>
+            </div>
+        </div>`).join('');
+    return `
+    <div class="admin-section-title"><i class="fas fa-users"></i> Users (${toBn(list.length)})</div>
+    <div class="admin-field"><label><i class="fas fa-search"></i> Search</label><input type="text" id="userSearch" placeholder="Search by number"></div>
+    <div id="userList">${items || '<div class="empty-state"><i class="fas fa-inbox"></i>No users yet</div>'}</div>`;
+}
+
+function renderAdminSettings(){
+    return `
+    <div class="admin-section-title"><i class="fas fa-key"></i> Change Admin Password</div>
+    <div class="admin-field"><label><i class="fas fa-lock"></i> Current Password</label><input type="password" id="setOldPwd" placeholder="••••••"></div>
+    <div class="admin-field"><label><i class="fas fa-lock"></i> New Password</label><input type="password" id="setNewPwd" placeholder="••••••"></div>
+    <button class="admin-btn full ok" data-admin-action="change-password"><i class="fas fa-save"></i> Change Password</button>
+
+    <div class="admin-section-title" style="margin-top:22px;"><i class="fas fa-database"></i> Firebase Info</div>
+    <div class="admin-item">
+        <div class="ai-icon"><i class="fas ${fbReady?'fa-circle-check':'fa-circle-xmark'}" style="color:${fbReady?'#4ADE80':'#FF6B6B'}"></i></div>
+        <div class="ai-body">
+            <div class="ai-title">${fbReady ? 'Connected' : 'Not Configured'}</div>
+            <div class="ai-meta">${fbReady ? esc(firebaseConfig.databaseURL || '') : 'Update firebaseConfig'}</div>
+        </div>
+    </div>
+
+    <div class="admin-section-title" style="margin-top:22px;"><i class="fas fa-rotate"></i> Sync Bundles</div>
+    <button class="admin-btn full" data-admin-action="reset-bundles"><i class="fas fa-rotate"></i> Reset to Default Bundles</button>
+
+    <div class="admin-section-title" style="margin-top:22px;"><i class="fas fa-triangle-exclamation" style="color:#FF6B6B"></i> Danger Zone</div>
+    <button class="admin-btn full danger" data-admin-action="logout"><i class="fas fa-right-from-bracket"></i> Logout</button>`;
+}
+
+function bindIconPicker(){
+    document.querySelectorAll('.icon-pick').forEach(el => {
+        el.addEventListener('click', () => {
+            const ic = el.dataset.icon;
+            const inp = $('bIcon');
+            if(inp){ inp.value = ic; $('bIconPreview').innerHTML = renderIcon(ic, 22); }
+        });
+    });
+    const inp = $('bIcon');
+    if(inp) inp.addEventListener('input', () => { $('bIconPreview').innerHTML = renderIcon(inp.value, 22); });
+}
+
+function bindAdminEvents(){
+    document.querySelectorAll('[data-admin-action="goto-recharges"]').forEach(b => b.onclick = () => { adminCurrentTab='recharges'; document.querySelector('[data-atab="recharges"]').click(); });
+    document.querySelectorAll('[data-admin-action="goto-bundles"]').forEach(b => b.onclick = () => { adminCurrentTab='bundles'; document.querySelector('[data-atab="bundles"]').click(); });
+    document.querySelectorAll('[data-admin-action="goto-payments"]').forEach(b => b.onclick = () => { adminCurrentTab='payments'; document.querySelector('[data-atab="payments"]').click(); });
+
+    document.querySelectorAll('[data-admin-action="new-bundle"]').forEach(b => b.onclick = () => openBundleForm(null));
+    document.querySelectorAll('[data-edit-bundle]').forEach(b => b.onclick = () => {
+        const id = b.dataset.editBundle;
+        const found = bundlesArr.find(x => x.id === id);
+        if(found) openBundleForm(found);
+    });
+    document.querySelectorAll('[data-del-bundle]').forEach(b => b.onclick = () => {
+        const id = b.dataset.delBundle;
+        if(!confirm('Delete this bundle?')) return;
+        if(fbReady) db.ref('config/bundles/' + id).remove();
+        bundlesArr = bundlesArr.filter(x => x.id !== id);
+        renderBundles();
+        renderAdminTab();
+        showToast('Bundle deleted','success');
+    });
+    document.querySelectorAll('[data-admin-action="cancel-bundle"]').forEach(b => b.onclick = () => { $('bundleForm').innerHTML = ''; });
+    document.querySelectorAll('[data-admin-action="save-bundle"]').forEach(b => b.onclick = () => {
+        const id = b.dataset.id;
+        const data = {
+            id: id || ('b_' + Date.now()),
+            icon: $('bIcon').value.trim() || 'fa-gem',
+            name: $('bName').value.trim() || 'Bundle',
+            amount: parseInt($('bAmount').value, 10) || 0,
+            price: parseInt($('bPrice').value, 10) || 0,
+            oldPrice: parseInt($('bOldPrice').value, 10) || 0,
+            order: parseInt($('bOrder').value, 10) || 0,
+            tag: $('bTag').value.trim(),
+            tagClass: $('bTagClass').value
+        };
+        if(!data.amount || !data.price){ showToast('Enter diamonds and price','warn'); return; }
+        if(fbReady){
+            db.ref('config/bundles/' + data.id).set(data).then(() => {
+                showToast('Bundle saved','success');
+                const idx = bundlesArr.findIndex(x => x.id === data.id);
+                if(idx >= 0) bundlesArr[idx] = data; else bundlesArr.push(data);
+                renderBundles(); renderAdminTab();
+            }).catch(err => showToast('Save failed: ' + err.message,'error'));
+        } else {
+            const idx = bundlesArr.findIndex(x => x.id === data.id);
+            if(idx >= 0) bundlesArr[idx] = data; else bundlesArr.push(data);
+            renderBundles(); renderAdminTab();
+            showToast('Saved locally','success');
+        }
+    });
+
+    document.querySelectorAll('[data-admin-action="save-payments"]').forEach(b => b.onclick = () => {
+        const data = {
+            bkash: $('payBkash').value.trim(),
+            nagad: $('payNagad').value.trim(),
+            rocket: $('payRocket').value.trim()
+        };
+        if(fbReady){
+            db.ref('config/payments').set(data).then(() => {
+                payments = Object.assign({}, DEFAULT_PAYMENTS, data);
+                updateAdminNumber();
+                showToast('Numbers saved','success');
+            }).catch(err => showToast('Save failed: '+err.message,'error'));
+        } else {
+            payments = Object.assign({}, DEFAULT_PAYMENTS, data);
+            updateAdminNumber();
+            showToast('Saved locally','success');
+        }
+    });
+
+    document.querySelectorAll('[data-approve]').forEach(b => b.onclick = async () => {
+        const id = b.dataset.approve;
+        const r = (adminData.recharges||{})[id];
+        if(!r) return;
+        if(!confirm(`Approve?\n${r.phone} · ৳${r.amount}`)) return;
+        try{
+            if(fbReady){
+                await db.ref('rechargeRequests/' + id).update({ status:'approved', approvedAt: Date.now() });
+                await db.ref('users/' + r.phone + '/balance').transaction(cur => (Number(cur)||0) + Number(r.amount));
+                showToast(t('tAdminApproved'),'success');
+            } else {
+                showToast('Firebase not configured','warn');
+            }
+        }catch(err){ showToast('Error: '+err.message,'error'); }
+    });
+    document.querySelectorAll('[data-reject]').forEach(b => b.onclick = () => {
+        const id = b.dataset.reject;
+        if(!confirm('Reject this request?')) return;
+        if(fbReady) db.ref('rechargeRequests/' + id).update({ status:'rejected', rejectedAt: Date.now() });
+        showToast('Rejected','success');
+    });
+    document.querySelectorAll('[data-del-recharge]').forEach(b => b.onclick = () => {
+        const id = b.dataset.delRecharge;
+        if(!confirm('Delete this request?')) return;
+        if(fbReady) db.ref('rechargeRequests/' + id).remove();
+        showToast('Deleted','success');
+    });
+
+    document.querySelectorAll('[data-edit-user]').forEach(b => b.onclick = () => {
+        const phone = b.dataset.editUser;
+        const cur = (adminData.users[phone]||{}).balance || 0;
+        const val = prompt(`New balance (${phone}):`, cur);
+        if(val === null) return;
+        const n = parseInt(val, 10);
+        if(isNaN(n)){ showToast('Invalid number','error'); return; }
+        if(fbReady) db.ref('users/' + phone + '/balance').set(n);
+        showToast('Balance updated','success');
+    });
+    const us = $('userSearch');
+    if(us) us.addEventListener('input', () => {
+        const q = us.value.trim().toLowerCase();
+        document.querySelectorAll('#userList .admin-item').forEach(item => {
+            const txt = item.textContent.toLowerCase();
+            item.style.display = !q || txt.includes(q) ? '' : 'none';
+        });
+    });
+
+    document.querySelectorAll('[data-admin-action="change-password"]').forEach(b => b.onclick = () => {
+        const oldP = $('setOldPwd').value;
+        const newP = $('setNewPwd').value;
+        if(oldP !== adminPassword){ showToast('Current password is wrong','error'); return; }
+        if(!newP || newP.length < 4){ showToast('New password must be at least 4 characters','warn'); return; }
+        if(fbReady) db.ref('config/adminPassword').set(newP);
+        adminPassword = newP;
+        $('setOldPwd').value = ''; $('setNewPwd').value = '';
+        showToast('Password changed','success');
+    });
+    document.querySelectorAll('[data-admin-action="reset-bundles"]').forEach(b => b.onclick = () => {
+        if(!confirm('Reset to default bundles?')) return;
+        bundlesArr = DEFAULT_BUNDLES.slice();
+        if(fbReady){
+            const out = {};
+            DEFAULT_BUNDLES.forEach(x => out[x.id] = x);
+            db.ref('config/bundles').set(out);
+        }
+        renderBundles(); renderAdminTab();
+        showToast('Reset complete','success');
+    });
+    document.querySelectorAll('[data-admin-action="logout"]').forEach(b => b.onclick = () => {
+        adminAuthed = false;
+        $('adminPanel').classList.remove('active');
+        $('adminLogin').style.display = 'flex';
+        $('adminPasswordInput').value = '';
+        showToast('Logged out','success');
+    });
+
+    bindIconPicker();
+}
+
+/* ============================================================
+   REALTIME
+   ============================================================ */
+if(fbReady){
+    db.ref('.info/connected').on('value', snap => console.log('🔥 connected:', snap.val()));
+} else {
+    console.warn('⚠️ Firebase not configured. Edit firebaseConfig.');
+    setTimeout(() => showToast(t('fbNotConfigured'),'warn'), 1500);
+}
+
+console.log('✅ Imu Diamond — Multi-Language Edition ready!');
+console.log('   Languages: বাংলা / English / हिन्दी');
+console.log('   Admin access: tap the header icon 5 times, or add ?admin=1 to the URL');
+console.log('   Default password: admin123');
+
+})();
+</script>
+</body>
+</html>
